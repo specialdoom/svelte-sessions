@@ -1,3 +1,21 @@
+@import "@specialdoom/proi-ui/variables.css";
+
 * {
+    --p800: #6d1fff;
+    --p600: #8543FF;
+    --p400: #a270ff;
+    --p200: #bd99ff;
+    --p0: #caadff;
+
+    --y800: #ff810a;
+    --y600: #ff8e23;
+    --y400: #ffab5c;
+    --y200: #ffb570;
+    --y0: #ffca99;
+
+    --black: #000000;
+
     font-size: 16px;
+    margin: 0;
+    padding: 0;
 }
