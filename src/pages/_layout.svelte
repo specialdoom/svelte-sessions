@@ -1,6 +1,5 @@
 <script>
     import NavBar from "../lib/components/nav-bar/NavBar.svelte";
-    import Footer from "../lib/components/footer/Footer.svelte";
 </script>
 
 <div>
@@ -8,7 +7,6 @@
  <main>
   <slot />
  </main>
- <Footer />
 </div>
 
 <style>
@@ -19,8 +17,11 @@
     }
 
     main {
+        box-sizing: border-box;
         position: relative;
-        height: 80%;
+        height: 90%;
         width: 100%;
+        padding: 0 16px;
+     overflow: hidden;
     }
 </style>

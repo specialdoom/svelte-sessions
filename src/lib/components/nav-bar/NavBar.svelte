@@ -17,13 +17,13 @@
 <style>
     nav {
         box-sizing: border-box;
-        padding: 4px 16px;
         display: flex;
         align-items: center;
         height: 10%;
         width: 100%;
         font-family: "motter_ombranormal";
         color: var(--bright);
+        background: transparent;
     }
 
     div.logo {

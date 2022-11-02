@@ -1,7 +1,7 @@
 <script>
     import * as THREE from 'three';
     import {Canvas, PerspectiveCamera, OrbitControls, DirectionalLight, AmbientLight} from 'svelte-cubed';
-    import Pumpkin from "../lib/components/3d-pumpkin/Pumpkin.svelte";
+    import Pumpkin from "../lib/components/3d/Pumpkin.svelte";
 </script>
 <Canvas
         background={new THREE.Color("black")}
