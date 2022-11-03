@@ -1,24 +1,19 @@
 <script>
   import { isActive } from "@roxi/routify";
-  import { FormItem, Dialog, TextInput } from "@specialdoom/proi-ui";
-  import Button from "../button/Button.svelte";
+  import { randUser } from "@ngneat/falso";
+  import { randomIntFromInterval } from "../../utils/number.js";
+  import { onMount } from "svelte";
+  import avatars from "../avatars/index.js";
 
-  let showContactUs = false;
+  let username = randUser().username;
 
-  let form = {
-    name: "",
-    email: "",
-    message: "",
-  };
-
-  function handleClick() {
-    showContactUs = true;
-  }
-
-  function handleDialogOk() {
-    alert(JSON.stringify(form));
-    showContactUs = false;
-  }
+  onMount(() => {
+    if (localStorage.getItem("username")) {
+      username = localStorage.getItem("username");
+    } else {
+      localStorage.setItem("username", username);
+    }
+  });
 </script>
 
 <nav>
@@ -28,43 +23,19 @@
       <a href="/" class:active={$isActive("./")}>home</a>
     </div>
     <div class:nav-item={true}>
-      <a href="/projects" class:active={$isActive("/projects")}>projects</a>
+      <a href="/play" class:active={$isActive("/play")}>play</a>
     </div>
     <div class:nav-item={true}>
       <a href="/faq" class:active={$isActive("/faq")}>faq</a>
     </div>
   </div>
   <div class:nav-actions={true}>
-    <Button on:click={handleClick}>Contact us</Button>
+    <svelte:component
+      this={avatars[randomIntFromInterval(0, avatars.length - 1)]}
+    />
+    <span>{username}</span>
   </div>
 </nav>
-
-<Dialog
-  title="Contact me 🎃🎃"
-  bind:visible={showContactUs}
-  onOk={handleDialogOk}
->
-  <div
-    style:display="flex"
-    style:flex-direction="column"
-    style:align-items="center"
-  >
-    <FormItem label="Name 👻">
-      <TextInput bind:value={form.name} />
-    </FormItem>
-
-    <FormItem label="Email 💀">
-      <TextInput bind:value={form.email} />
-    </FormItem>
-
-    <FormItem
-      label="Message 🩸"
-      description="TextArea component is coming... 😈"
-    >
-      <TextInput bind:value={form.message} />
-    </FormItem>
-  </div>
-</Dialog>
 
 <style>
   nav {
@@ -74,6 +45,7 @@
     align-items: center;
     height: 72px;
     width: 100%;
+    padding: 0 16px;
     font-family: "motter_ombranormal";
     color: var(--bright);
     z-index: 10;
@@ -91,7 +63,7 @@
 
   nav div.nav-items {
     display: inherit;
-    width: 80%;
+    width: 70%;
     gap: 16px;
     justify-content: center;
     align-items: inherit;
@@ -115,6 +87,20 @@
   nav div.nav-actions {
     display: inherit;
     align-items: inherit;
-    width: 10%;
+    width: 20%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+
+  div.nav-actions span {
+    line-height: 60%;
+    color: var(--y600);
+  }
+
+  :global(div.nav-actions svg) {
+    height: 60%;
   }
 </style>

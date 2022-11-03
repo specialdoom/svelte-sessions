@@ -1,11 +1,11 @@
 
 /**
  * @roxi/routify 2.18.8
- * File generated Wed Nov 02 2022 09:29:53 GMT+0200 (Eastern European Standard Time)
+ * File generated Thu Nov 03 2022 11:04:37 GMT+0200 (Eastern European Standard Time)
  */
 
 export const __version = "2.18.8"
-export const __timestamp = "2022-11-02T07:29:53.850Z"
+export const __timestamp = "2022-11-03T09:04:37.480Z"
 
 //buildRoutes
 import { buildClientTree } from "@roxi/routify/runtime/buildRoutes"
@@ -77,13 +77,13 @@ export const _tree = {
     {
       "isFile": true,
       "isDir": false,
-      "file": "projects.svelte",
-      "filepath": "/projects.svelte",
-      "name": "projects",
+      "file": "play.svelte",
+      "filepath": "/play.svelte",
+      "name": "play",
       "ext": "svelte",
       "badExt": false,
-      "absolutePath": "C:/code/considering-svelte/src/pages/projects.svelte",
-      "importPath": "../src/pages/projects.svelte",
+      "absolutePath": "C:/code/considering-svelte/src/pages/play.svelte",
+      "importPath": "../src/pages/play.svelte",
       "isLayout": false,
       "isReset": false,
       "isIndex": false,
@@ -95,9 +95,9 @@ export const _tree = {
         "preload": false,
         "prerender": true
       },
-      "path": "/projects",
-      "id": "_projects",
-      "component": () => import('../src/pages/projects.svelte').then(m => m.default)
+      "path": "/play",
+      "id": "_play",
+      "component": () => import('../src/pages/play.svelte').then(m => m.default)
     }
   ],
   "isLayout": true,

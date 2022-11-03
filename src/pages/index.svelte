@@ -24,3 +24,22 @@
   <AmbientLight color={new THREE.Color(0xffffff)} intensity={0.75} />
   <Pumpkin />
 </Canvas>
+
+<footer>Best ghost hunting game ever</footer>
+
+<style>
+  footer {
+    background: transparent;
+    font-family: Arial;
+    position: absolute;
+    color: var(--bright);
+    bottom: 0;
+    height: 64px;
+    width: 100%;
+    font-size: 20px;
+    display: inline-flex;
+    align-items: center;
+    padding: 0 16px;
+    box-sizing: border-box;
+  }
+</style>

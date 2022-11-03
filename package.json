@@ -2,7 +2,7 @@
   "name": "considering-svelte",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
     "dev": "run-p dev:*",
     "dev:vite": "vite",
@@ -19,6 +19,7 @@
     "vite": "^3.1.0"
   },
   "dependencies": {
+    "@ngneat/falso": "^6.1.0",
     "@specialdoom/proi-ui": "^3.0.2",
     "svelte-cubed": "^0.2.1",
     "three": "^0.146.0"
