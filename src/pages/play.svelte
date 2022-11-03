@@ -9,13 +9,16 @@
   let captured = [];
   let rules = undefined;
   let showRules = true;
+  let cleared = false;
 
   onMount(() => {
     rules = localStorage.getItem("rules");
     if (rules) showRules = false;
   });
 
-  $: cleared = ghosts.length === captured.length;
+  $: {
+    cleared = ghosts.length === captured.length;
+  }
 
   function handleOnCapture(event) {
     captured = [...captured, event.detail];
@@ -23,7 +26,6 @@
 
   function handleFinish() {
     cleared = false;
-    window.location.reload();
   }
 
   function handleAccept() {
@@ -45,7 +47,7 @@
 </Dialog>
 
 <Dialog bind:visible={cleared} title="Congrats!!! 🎈🎈🎈" onOk={handleFinish}>
-  <div>Congrats! You managed to capture every ghost! Try again?</div>
+  <div>Congrats! You managed to capture every ghost!</div>
 </Dialog>
 
 <Timer />
