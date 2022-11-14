@@ -1,10 +1,3 @@
-# Boo
+# Considering Svelte / Svelte, the next big thing
 
-Best ghost hunting game alive.
-
-# Coming next
-
-- save score
-- customizable nicknames
-- hard mode
-- best dialog experience
+Repository for `Considering Svelte / Svelte, the next big thing` sessions
