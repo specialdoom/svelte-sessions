@@ -12,6 +12,7 @@
     display: flex;
     flex-direction: column;
   }
+
   div.side-nav {
     justify-content: space-between;
     height: 100%;

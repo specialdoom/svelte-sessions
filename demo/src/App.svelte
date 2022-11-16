@@ -10,10 +10,11 @@
   import SettingsIcon from "./lib/icons/SettingsIcon.svelte";
   import TaskButton from "./lib/components/task-button/TaskButton.svelte";
   import SideNavBrand from "./lib/components/nav/SideNavBrand.svelte";
+  import Content from "./lib/components/app-shell/Content.svelte";
 </script>
 
 <AppShell>
-  <LeftPanel slot="left">
+  <LeftPanel>
     <SideNav>
       <SideNavBrand />
       <SideNavItem icon={DashboardIcon} active>Dashoard</SideNavItem>
@@ -23,13 +24,6 @@
       <TaskButton slot="trail" description="click here">Create Task</TaskButton>
     </SideNav>
   </LeftPanel>
-  <main slot="content">content</main>
-  <RightPanel slot="right" />
+  <Content>Content</Content>
+  <RightPanel />
 </AppShell>
-
-<style>
-  main {
-    width: 60%;
-    height: 100%;
-  }
-</style>

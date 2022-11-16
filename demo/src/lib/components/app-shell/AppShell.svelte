@@ -1,7 +1,5 @@
 <div class:shell={true}>
-  <slot name="left" />
-  <slot name="content" />
-  <slot name="right" />
+  <slot />
 </div>
 
 <style>
