@@ -7,6 +7,7 @@
     width: 60%;
     height: 100%;
     border-radius: 16px;
-    background: #ffffff;
+    background: #fdfafe;
+    
   }
 </style>
