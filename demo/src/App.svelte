@@ -11,6 +11,7 @@
   import TaskButton from "./lib/components/task-button/TaskButton.svelte";
   import SideNavBrand from "./lib/components/nav/SideNavBrand.svelte";
   import Content from "./lib/components/app-shell/Content.svelte";
+  import TimelineShell from "./lib/components/timeline/TimelineShell.svelte";
 </script>
 
 <AppShell>
@@ -24,6 +25,6 @@
       <TaskButton slot="trail" description="click here">Create Task</TaskButton>
     </SideNav>
   </LeftPanel>
-  <Content>Content</Content>
+  <Content><TimelineShell /></Content>
   <RightPanel />
 </AppShell>
