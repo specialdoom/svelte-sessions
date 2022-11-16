@@ -1,23 +1,35 @@
-<script>
-  import { AppShell, AppRail, AppRailTile } from "@brainandbones/skeleton";
-  import { appRailStore } from "./stores/app-rail";
-  import { Grid, Folder, Notification } from "./lib/icons/index";
+<script lang="ts">
+  import AppShell from "./lib/components/app-shell/AppShell.svelte";
+  import LeftPanel from "./lib/components/app-shell/LeftPanel.svelte";
+  import RightPanel from "./lib/components/app-shell/RightPanel.svelte";
+  import SideNav from "./lib/components/nav/SideNav.svelte";
+  import SideNavItem from "./lib/components/nav/SideNavItem.svelte";
+  import DashboardIcon from "./lib/icons/DashboardIcon.svelte";
+  import ProjectsIcon from "./lib/icons/ProjectsIcon.svelte";
+  import NotificationIcon from "./lib/icons/NotificationIcon.svelte";
+  import SettingsIcon from "./lib/icons/SettingsIcon.svelte";
+  import TaskButton from "./lib/components/task-button/TaskButton.svelte";
+  import SideNavBrand from "./lib/components/nav/SideNavBrand.svelte";
 </script>
 
-<AppRail selected={appRailStore}>
-  <AppRailTile label="Dashboard" title="Dashboard" value={1}>
-    <Grid />
-  </AppRailTile>
-  <AppRailTile label="My projects" title="My projects" value={2}>
-    <Folder />
-  </AppRailTile>
-  <AppRailTile label="Notifications" title="Notifications" value={3}>
-    <Notification />
-  </AppRailTile>
-</AppRail>
 <AppShell>
-  <!-- Router Slot -->
-  <slot />
-  <!-- ---- / ---- -->
-  <svelte:fragment slot="sidebarRight">Sidebar Right</svelte:fragment>
+  <LeftPanel slot="left">
+    <SideNav>
+      <SideNavBrand />
+      <SideNavItem icon={DashboardIcon} active>Dashoard</SideNavItem>
+      <SideNavItem icon={ProjectsIcon}>My projects</SideNavItem>
+      <SideNavItem icon={NotificationIcon}>Notifications</SideNavItem>
+      <SideNavItem icon={SettingsIcon}>Settings</SideNavItem>
+      <TaskButton slot="trail" description="click here">Create Task</TaskButton>
+    </SideNav>
+  </LeftPanel>
+  <main slot="content">content</main>
+  <RightPanel slot="right" />
 </AppShell>
+
+<style>
+  main {
+    width: 60%;
+    height: 100%;
+  }
+</style>
