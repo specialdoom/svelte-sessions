@@ -18,13 +18,15 @@
   <LeftPanel>
     <SideNav>
       <SideNavBrand />
-      <SideNavItem icon={DashboardIcon} active>Dashoard</SideNavItem>
-      <SideNavItem icon={ProjectsIcon}>My projects</SideNavItem>
-      <SideNavItem icon={NotificationIcon}>Notifications</SideNavItem>
+      <SideNavItem icon={DashboardIcon} active>Timeline</SideNavItem>
+      <!-- <SideNavItem icon={ProjectsIcon}>My projects</SideNavItem>
+      <SideNavItem icon={NotificationIcon}>Notifications</SideNavItem> -->
       <SideNavItem icon={SettingsIcon}>Settings</SideNavItem>
       <TaskButton slot="trail" description="click here">Create Task</TaskButton>
     </SideNav>
   </LeftPanel>
-  <Content><TimelineShell /></Content>
+  <Content>
+    <TimelineShell />
+  </Content>
   <RightPanel />
 </AppShell>

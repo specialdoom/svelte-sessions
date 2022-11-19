@@ -12,12 +12,6 @@
   <div class:timeline-bar-header={true}>
     <div class:date-and-controls={true}>
       <span class:date={true}>{date}</span>
-      <Button variant="ghost">
-        <ArrowLeftIcon />
-      </Button>
-      <Button variant="ghost">
-        <ArrowRightIcon />
-      </Button>
     </div>
     <TextInput placeholder="Search task" />
   </div>

@@ -33,11 +33,11 @@
   }
 
   div.active {
-    background: rgb(84, 91, 243);
+    background: rgb(71, 154, 137);
     background: linear-gradient(
       90deg,
-      rgba(84, 91, 243, 1) 0%,
-      rgba(129, 87, 241, 1) 100%
+      rgba(71, 154, 137, 1) 0%,
+      rgba(115, 191, 176, 0.8524452017134979) 100%
     );
     color: #ffffff;
   }
