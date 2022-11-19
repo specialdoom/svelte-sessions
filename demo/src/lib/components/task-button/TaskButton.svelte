@@ -1,4 +1,6 @@
 <script lang="ts">
+  import dayjs from "dayjs";
+  import { newTask } from "../../stores/days";
   import NoteAddIcon from "./NoteAddIcon.svelte";
 
   export let description: string = "";
@@ -9,7 +11,7 @@
   }
 </script>
 
-<button class:flex={true} use:square>
+<button class:flex={true} use:square on:click>
   <div class:flex={true}>
     <span class:label={true}><slot /></span>
     <span class:description={true}>{description}</span>

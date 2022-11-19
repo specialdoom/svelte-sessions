@@ -1,17 +1,23 @@
 <script>
-  import { TextInput, Button } from "@specialdoom/proi-ui";
-  import dayjs from "dayjs";
-  import ArrowLeftIcon from "../../icons/ArrowLeftIcon.svelte";
-  import ArrowRightIcon from "../../icons/ArrowRightIcon.svelte";
+  import { Button, TextInput } from "@specialdoom/proi-ui";
+  import { createEventDispatcher } from "svelte";
+  import { current } from "../../stores/days";
 
-  const date = dayjs().format("MMMM, D");
-  const dayOfTheWeek = dayjs().format("dddd");
+  const date = $current.format("MMMM, D");
+  const dayOfTheWeek = $current.format("dddd");
+
+  const dispatch = createEventDispatcher();
+
+  function dispatchPrevEvent() {
+    dispatch("prev");
+  }
 </script>
 
 <div class:timeline-bar={true}>
   <div class:timeline-bar-header={true}>
     <div class:date-and-controls={true}>
       <span class:date={true}>{date}</span>
+      <Button on:click={dispatchPrevEvent}>Previous day</Button>
     </div>
     <TextInput placeholder="Search task" />
   </div>

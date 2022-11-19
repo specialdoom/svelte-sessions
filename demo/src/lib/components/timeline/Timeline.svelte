@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import {
     Timeline,
     TimelineItem,
@@ -8,39 +8,40 @@
     TimelineOppositeContent,
   } from "svelte-vertical-timeline";
   import NoTimelineState from "../../icons/NoTimelineState.svelte";
+  import { current, days } from "../../stores/days";
+  import { getDayId } from "../../utils/day";
+  import { TASKS } from "../../utils/task";
 
-  const options = [];
+  $: tasks = $days[getDayId($current)]?.tasks ?? [];
 </script>
 
-{#if options.length === 0}
+{#if tasks.length === 0}
   <div class="empty-state">
     <NoTimelineState />
     <p>Today's timeline of yours is empty!</p>
   </div>
 {:else}
-  <Timeline
-    position="alternate"
-    style="box-shadow: 
-inset 0px 11px 8px -10px #CCC,
-inset 0px -11px 8px -10px #CCC;"
-  >
-    {#each options as option, i}
-      <TimelineItem>
-        <TimelineOppositeContent slot="opposite-content">
-          <p>{option.time}</p>
-        </TimelineOppositeContent>
-        <TimelineSeparator>
-          <span>🍕</span>
-          {#if i !== options.length - 1}
-            <TimelineConnector />
-          {/if}
-        </TimelineSeparator>
-        <TimelineContent>
-          <h3>{option.title}</h3>
-        </TimelineContent>
-      </TimelineItem>
-    {/each}
-  </Timeline>
+  <div class="timeline-container">
+    <Timeline position="alternate" style=" width: 100%; overflow: hidden;">
+      {#each tasks as option, i}
+        <TimelineItem>
+          <TimelineOppositeContent slot="opposite-content">
+            <p>{option.time.format("HH:hh A")}</p>
+          </TimelineOppositeContent>
+          <TimelineSeparator>
+            <span style:font-size="20px">{TASKS[option.type]}</span>
+            {#if i !== tasks.length - 1}
+              <TimelineConnector />
+            {/if}
+          </TimelineSeparator>
+          <TimelineContent>
+            <h3>{option.title}</h3>
+            <p>{option.description}</p>
+          </TimelineContent>
+        </TimelineItem>
+      {/each}
+    </Timeline>
+  </div>
 {/if}
 
 <style>
@@ -52,6 +53,16 @@ inset 0px -11px 8px -10px #CCC;"
     align-items: center;
   }
 
+  div.timeline-container {
+    height: 100%;
+    overflow: auto;
+    box-shadow: inset 0px 11px 8px -10px #ccc, inset 0px -11px 8px -10px #ccc;
+  }
+
+  div.timeline-container::-webkit-scrollbar {
+    display: none;
+  }
+
   div.empty-state {
     box-sizing: border-box;
     display: flex;
@@ -59,8 +70,12 @@ inset 0px -11px 8px -10px #CCC;"
     flex-direction: column;
     align-items: center;
     gap: 8px;
-    height: 100%;
     width: 100%;
+    overflow: auto;
+  }
+
+  div.empty-state::-webkit-scrollbar {
+    display: none;
   }
 
   div.empty-state p {
