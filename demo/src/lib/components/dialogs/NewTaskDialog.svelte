@@ -1,32 +1,32 @@
 <script lang="ts">
-    import { Dialog, FormItem, Radio, TextInput } from "@specialdoom/proi-ui";
-    import dayjs from "dayjs";
-    import { newTask } from "../../stores/days";
-    import { TASKS } from "../../utils/task";
     import type { Task } from "../../utils/types";
+    import { Dialog, FormItem, Radio, TextInput } from "@specialdoom/proi-ui";
+    import { newTask } from "../../stores/days";
+    import { generateNewTask, TASKS } from "../../utils/task";
+    import { current } from "../../stores/days";
 
     export let visible: boolean = true;
 
     let task: Task = {
-        time: dayjs(),
+        date: $current,
         title: "",
         description: "",
         type: "custom",
     };
 
-    $: console.log(task);
-
     function addNewTask() {
-        newTask(dayjs().format("DD/MM/YYYY"), task);
+        newTask($current.format("DD/MM/YYYY"), { ...task });
 
-        task.title = "";
-        task.description = "";
-        task.type = "custom";
+        task = generateNewTask();
     }
 </script>
 
-<Dialog bind:visible title="🗒️ Add new task" onOk={addNewTask}>
-    time: {task.time.format("HH:hh A")}
+<Dialog
+    bind:visible
+    title="🗒️ Add new task: {$current.format('DD/MM/YYYY, HH:mm')}"
+    on:ok={addNewTask}
+    on:ok
+>
     <FormItem label="Title">
         <TextInput placeholder="Task title" bind:value={task.title} />
     </FormItem>

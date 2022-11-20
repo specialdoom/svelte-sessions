@@ -9,32 +9,51 @@
   import TaskButton from "./lib/components/task-button/TaskButton.svelte";
   import SideNavBrand from "./lib/components/nav/SideNavBrand.svelte";
   import Content from "./lib/components/app-shell/Content.svelte";
-  import TimelineShell from "./lib/components/timeline/TimelineShell.svelte";
   import NewTaskDialog from "./lib/components/dialogs/NewTaskDialog.svelte";
+  import { current } from "./lib/stores/days";
+  import Wheather from "./lib/components/wheather/Wheather.svelte";
+
+  import { Router, goto } from "@roxi/routify";
+  import { routes } from "../.routify/routes";
 
   let newTaskDialog: boolean = false;
 </script>
 
-<NewTaskDialog bind:visible={newTaskDialog} />
+<NewTaskDialog
+  bind:visible={newTaskDialog}
+  on:ok={() => (newTaskDialog = false)}
+/>
 <AppShell>
   <LeftPanel>
     <SideNav>
       <SideNavBrand />
-      <SideNavItem icon={DashboardIcon} active>Timeline</SideNavItem>
-      <!-- <SideNavItem icon={ProjectsIcon}>My projects</SideNavItem>
-      <SideNavItem icon={NotificationIcon}>Notifications</SideNavItem> -->
-      <SideNavItem icon={SettingsIcon}>Settings</SideNavItem>
-      <TaskButton
-        slot="trail"
-        description="click here"
-        on:click={() => (newTaskDialog = true)}
+      <SideNavItem icon={DashboardIcon} on:click={() => $goto("/")} active>
+        Timeline
+      </SideNavItem>
+      <SideNavItem
+        icon={SettingsIcon}
+        on:click={() => {
+          console.log("settings");
+          $goto("/settings");
+        }}
       >
-        Create Task
-      </TaskButton>
+        Settings
+      </SideNavItem>
+      {#if $current.isToday()}
+        <TaskButton
+          slot="trail"
+          description="click here"
+          on:click={() => (newTaskDialog = true)}
+        >
+          Create Task
+        </TaskButton>
+      {/if}
     </SideNav>
   </LeftPanel>
   <Content>
-    <TimelineShell />
+    <Router {routes} />
   </Content>
-  <RightPanel />
+  <RightPanel>
+    <Wheather />
+  </RightPanel>
 </AppShell>

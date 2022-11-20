@@ -1,4 +1,6 @@
+import dayjs from "./day-js"
 import type {
+    Task,
     TaskType
 } from "./types"
 
@@ -11,3 +13,12 @@ export const TASKS: Readonly<{
     "symptom": "🩺",
     "custom": "💻"
 })
+
+export function generateNewTask(): Task {
+    return {
+        date: dayjs(),
+        title: "",
+        description: "",
+        type: "custom",
+    }
+}

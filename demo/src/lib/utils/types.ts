@@ -5,7 +5,7 @@ export type Constructor<T> = new (...args: any[]) => T;
 export type TaskType = "break" | "eat" | "work" | "custom" | "symptom";
 
 export interface Task {
-    time: Dayjs;
+    date: Dayjs;
     title: string;
     description: string;
     type: TaskType;

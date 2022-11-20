@@ -1,27 +1,28 @@
 <script>
   import { Button, TextInput } from "@specialdoom/proi-ui";
-  import { createEventDispatcher } from "svelte";
   import { current } from "../../stores/days";
 
-  const date = $current.format("MMMM, D");
-  const dayOfTheWeek = $current.format("dddd");
+  function previousDay() {
+    current.update((c) => c.add(-1, "day"));
+  }
 
-  const dispatch = createEventDispatcher();
-
-  function dispatchPrevEvent() {
-    dispatch("prev");
+  function nextDay() {
+    current.update((c) => c.add(1, "day"));
   }
 </script>
 
 <div class:timeline-bar={true}>
   <div class:timeline-bar-header={true}>
     <div class:date-and-controls={true}>
-      <span class:date={true}>{date}</span>
-      <Button on:click={dispatchPrevEvent}>Previous day</Button>
+      <span class:date={true}>{$current.format("MMMM, D")}</span>
+      <Button on:click={previousDay}>Previous day</Button>
+      {#if !$current.isToday()}
+        <Button on:click={nextDay}>Next day</Button>
+      {/if}
     </div>
     <TextInput placeholder="Search task" />
   </div>
-  <span class:day-of-the-week={true}>{dayOfTheWeek}</span>
+  <span class:day-of-the-week={true}>{$current.format("dddd")}</span>
 </div>
 
 <style>

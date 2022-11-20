@@ -1,5 +1,5 @@
 import type { Dayjs } from "dayjs";
-import dayjs from "dayjs";
+import dayjs from "../utils/day-js";
 import { writable } from "svelte/store";
 import { getDayId } from "../utils/day";
 import type { Day, Days, Task } from "../utils/types";

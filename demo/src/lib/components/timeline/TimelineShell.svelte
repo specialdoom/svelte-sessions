@@ -3,7 +3,7 @@
   import Timeline from "./Timeline.svelte";
   import TimelineBar from "./TimelineBar.svelte";
   import { current, days, newDay } from "../../stores/days";
-  import dayjs from "dayjs";
+  import dayjs from "../../utils/day-js";
   import { onMount } from "svelte";
 
   onMount(() => {
@@ -14,14 +14,10 @@
       });
     }
   });
-
-  function previousDay() {
-    current.set(dayjs().add(-1, "day"));
-  }
 </script>
 
 <div>
-  <TimelineBar on:prev={previousDay} />
+  <TimelineBar />
   <Timeline currentDay={$current} />
 </div>
 

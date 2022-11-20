@@ -7,6 +7,7 @@
     box-sizing: border-box;
     width: 25%;
     height: 100%;
+    padding: 8px;
     border-radius: 16px;
     background-color: #fdfafe;
   }

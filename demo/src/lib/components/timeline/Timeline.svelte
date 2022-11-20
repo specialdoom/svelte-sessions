@@ -18,7 +18,11 @@
 {#if tasks.length === 0}
   <div class="empty-state">
     <NoTimelineState />
-    <p>Today's timeline of yours is empty!</p>
+    <p>
+      {$current.isToday()
+        ? `Today's timeline of yours is empty!`
+        : `This day's timeline of yours is empty`}
+    </p>
   </div>
 {:else}
   <div class="timeline-container">
@@ -26,7 +30,7 @@
       {#each tasks as option, i}
         <TimelineItem>
           <TimelineOppositeContent slot="opposite-content">
-            <p>{option.time.format("HH:hh A")}</p>
+            <p>{option.date.format("HH:hh A")}</p>
           </TimelineOppositeContent>
           <TimelineSeparator>
             <span style:font-size="20px">{TASKS[option.type]}</span>
@@ -35,7 +39,7 @@
             {/if}
           </TimelineSeparator>
           <TimelineContent>
-            <h3>{option.title}</h3>
+            <h4>{option.title}</h4>
             <p>{option.description}</p>
           </TimelineContent>
         </TimelineItem>
