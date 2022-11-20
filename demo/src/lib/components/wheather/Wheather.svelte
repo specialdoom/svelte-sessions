@@ -22,6 +22,7 @@
 
 <style>
     div {
+        height: 10%;
         display: inline-flex;
         align-items: center;
         height: 40px;
