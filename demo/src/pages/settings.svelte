@@ -10,5 +10,9 @@
         <p slot="description">Wheather widget</p>
         <Switch slot="action" />
     </SettingItem>
+    <SettingItem>
+        <p slot="description">Todos widget</p>
+        <Switch slot="action" />
+    </SettingItem>
     <SettingsState slot="trail" />
 </Settings>

@@ -1,6 +1,9 @@
-<script>
+<script lang="ts">
   import { Button, TextInput } from "@specialdoom/proi-ui";
   import { current } from "../../stores/days";
+  import NewTaskDialog from "../dialogs/NewTaskDialog.svelte";
+
+  let visible: boolean = false;
 
   function previousDay() {
     current.update((c) => c.add(-1, "day"));
@@ -10,6 +13,8 @@
     current.update((c) => c.add(1, "day"));
   }
 </script>
+
+<NewTaskDialog bind:visible on:ok={() => (visible = false)} />
 
 <div class:timeline-bar={true}>
   <div class:timeline-bar-header={true}>
@@ -21,6 +26,7 @@
       {/if}
     </div>
     <TextInput placeholder="Search task" />
+    <Button on:click={() => (visible = true)}>Add task</Button>
   </div>
   <span class:day-of-the-week={true}>{$current.format("dddd")}</span>
 </div>

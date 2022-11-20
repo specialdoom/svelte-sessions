@@ -8,12 +8,10 @@
     import SettingsIcon from "../lib/icons/SettingsIcon.svelte";
     import SideNavBrand from "../lib/components/nav/SideNavBrand.svelte";
     import Content from "../lib/components/app-shell/Content.svelte";
-    import NewTaskDialog from "../lib/components/dialogs/NewTaskDialog.svelte";
     import Wheather from "../lib/components/wheather/Wheather.svelte";
     import { isActive, goto } from "@roxi/routify";
     import Todos from "../lib/components/todos/Todos.svelte";
-
-    let newTaskDialog: boolean = false;
+    import Divider from "../lib/components/divider/Divider.svelte";
 
     const routes = [
         {
@@ -29,10 +27,6 @@
     ];
 </script>
 
-<NewTaskDialog
-    bind:visible={newTaskDialog}
-    on:ok={() => (newTaskDialog = false)}
-/>
 <AppShell>
     <LeftPanel>
         <SideNav>
@@ -53,6 +47,7 @@
     </Content>
     <RightPanel>
         <Wheather />
+        <Divider />
         <Todos />
     </RightPanel>
 </AppShell>

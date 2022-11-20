@@ -18,7 +18,7 @@
 
 <div>
   <TimelineBar />
-  <Timeline currentDay={$current} />
+  <Timeline />
 </div>
 
 <style>
