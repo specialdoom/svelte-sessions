@@ -8,6 +8,7 @@
     "dev:vite": "vite",
     "dev:routify": "routify",
     "build": "vite build",
+    "build:prod": "node ./generate-firebase-config.js && vite build",
     "check": "svelte-check --tsconfig ./tsconfig.json"
   },
   "devDependencies": {
