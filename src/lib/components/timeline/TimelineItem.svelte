@@ -1,0 +1,109 @@
+<script lang="ts">
+    export let title: string = "";
+    export let icon: string = "💻";
+</script>
+
+<div class="single-timeline d-flex-2">
+    <div class="timeline-blank" />
+    <div class="timeline-text d-flex-2">
+        <span>
+            <h6>{icon} - {title}</h6>
+            — <slot />
+        </span>
+        <div class="timeline-dot" />
+    </div>
+</div>
+
+<style>
+    .d-flex-2 {
+        display: flex;
+        align-items: center;
+    }
+
+    .single-timeline {
+        margin-bottom: 22px;
+    }
+
+    .timeline-blank {
+        width: 50%;
+        text-align: right;
+    }
+
+    .timeline-text {
+        width: 50%;
+        padding-left: 30px;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        position: relative;
+    }
+
+    .timeline-text h6 {
+        color: #000;
+        font-weight: 900;
+        display: inline-block;
+        font-size: 1rem;
+    }
+
+    .timeline-text span {
+        color: #000;
+        display: block;
+        width: 100%;
+    }
+
+    .single-timeline:nth-child(even) .timeline-text span {
+        text-align: right;
+    }
+
+    .timeline-dot {
+        content: "";
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        left: -6px;
+        background: var(--g600);
+        border-radius: 50%;
+    }
+
+    .single-timeline:nth-child(even) {
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: reverse;
+        -ms-flex-direction: row-reverse;
+        flex-direction: row-reverse;
+    }
+
+    .single-timeline:nth-child(even) .timeline-dot {
+        right: -6px;
+        left: unset;
+    }
+
+    .single-timeline:nth-child(even) .timeline-text {
+        padding-left: 0;
+        padding-right: 30px;
+        text-align: right;
+    }
+
+    @media all and (max-width: 768px) {
+        .single-timeline:nth-child(2n) .timeline-text {
+            padding-left: 30px;
+            padding-right: 0;
+            text-align: left;
+        }
+
+        .single-timeline:nth-child(2n) .timeline-dot {
+            left: -6px;
+            right: unset;
+        }
+
+        .timeline-blank {
+            display: none;
+        }
+
+        .timeline-text {
+            width: 100%;
+        }
+
+        .single-timeline:nth-child(even) .timeline-text span {
+            text-align: left !important;
+        }
+    }
+</style>
