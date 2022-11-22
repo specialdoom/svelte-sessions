@@ -35,7 +35,7 @@
 
 <style>
     .todos-container {
-        height: 90%;
+        height: 85%;
         display: flex;
         flex-direction: column;
         gap: 4px;

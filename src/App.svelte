@@ -7,27 +7,43 @@
   import UnauthenticatedApp from "./lib/components/app-shell/UnauthenticatedApp.svelte";
   import { firebaseAuth } from "./firebase";
   import AppLoader from "./lib/components/app-shell/AppLoder.svelte";
+  import { ToastProvider } from "@specialdoom/proi-ui";
+  import { settings } from "./lib/stores/app";
 
   let showLoading: boolean = true;
 
-  onMount(() => {
+  onMount(async () => {
     showLoading = true;
+
     onAuthStateChanged(firebaseAuth, (user) => {
       if (user) {
-        $auth.user = user.email;
+        auth.update(() => ({
+          email: user.email,
+          uid: user.uid,
+          name: user.displayName,
+        }));
       } else {
-        $auth.user = "";
+        auth.update(() => ({ email: "", uid: "", name: "" }));
       }
 
       showLoading = false;
     });
+
+    const savedSettings = localStorage.getItem("settings");
+
+    if (savedSettings) {
+      $settings = JSON.parse(savedSettings);
+    } else {
+      localStorage.setItem("settings", JSON.stringify($settings));
+    }
   });
 </script>
 
 {#if showLoading}
   <AppLoader />
-{:else if !$auth.user}
+{:else if !$auth.uid}
   <UnauthenticatedApp />
 {:else}
+  <ToastProvider />
   <Router {routes} />
 {/if}

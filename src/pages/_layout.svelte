@@ -12,6 +12,8 @@
     import { isActive, goto } from "@roxi/routify";
     import Todos from "../lib/components/todos/Todos.svelte";
     import Divider from "../lib/components/divider/Divider.svelte";
+    import Hello from "../lib/components/hello/Hello.svelte";
+    import { settings } from "../lib/stores/app";
 
     const routes = [
         {
@@ -25,6 +27,9 @@
             icon: SettingsIcon,
         },
     ];
+
+    $: hasSettings =
+        $settings.weather || $settings.todos || $settings.greetings;
 </script>
 
 <AppShell>
@@ -45,9 +50,17 @@
     <Content>
         <slot />
     </Content>
-    <RightPanel>
-        <Wheather />
-        <Divider />
-        <Todos />
-    </RightPanel>
+    {#if hasSettings}
+        <RightPanel>
+            {#if $settings.greetings}
+                <Hello />
+            {/if}
+            {#if $settings.weather}
+                <Wheather />
+            {/if}
+            {#if $settings.todos}
+                <Todos />
+            {/if}
+        </RightPanel>
+    {/if}
 </AppShell>

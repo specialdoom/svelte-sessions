@@ -3,8 +3,17 @@
     import TimelineItem from "./TimelineItem.svelte";
     import NoTimelineState from "../../icons/NoTimelineState.svelte";
     import { current, days } from "../../stores/days";
+    import { auth } from "../../stores/auth";
     import { getDayId } from "../../utils/day";
     import { TASKS } from "../../utils/task";
+    import { onMount } from "svelte";
+    import { getTasksForUser } from "../../services/firestore-tasks";
+
+    onMount(async () => {
+        const tasks = await getTasksForUser($auth.uid, $current);
+
+        $days[getDayId($current)].tasks = tasks;
+    });
 
     $: tasks = $days[getDayId($current)]?.tasks ?? [];
 </script>
