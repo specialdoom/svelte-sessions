@@ -1,45 +1,33 @@
 <script lang="ts">
-  import { initializeApp } from "firebase/app";
-  import {
-    getAuth,
-    onAuthStateChanged,
-    signInWithRedirect,
-  } from "firebase/auth";
-  import { firebaseConfig } from "../firebase-config";
+  import { onAuthStateChanged } from "firebase/auth";
   import { Router } from "@roxi/routify";
   import { routes } from "../.routify/routes";
   import { onMount } from "svelte";
   import { auth } from "./lib/stores/auth";
-  import { GoogleAuthProvider } from "firebase/auth";
+  import UnauthenticatedApp from "./lib/components/app-shell/UnauthenticatedApp.svelte";
+  import { firebaseAuth } from "./firebase";
+  import AppLoader from "./lib/components/app-shell/AppLoder.svelte";
 
-  const provider = new GoogleAuthProvider();
-  provider.addScope("https://www.googleapis.com/auth/contacts.readonly");
-
-  let app = undefined;
+  let showLoading: boolean = true;
 
   onMount(() => {
-    app = initializeApp(firebaseConfig);
-
-    onAuthStateChanged(getAuth(app), (user) => {
+    showLoading = true;
+    onAuthStateChanged(firebaseAuth, (user) => {
       if (user) {
         $auth.user = user.email;
-        // ...
       } else {
-        // User is signed out
-        // ...
-        console.log("logout");
+        $auth.user = "";
       }
+
+      showLoading = false;
     });
   });
-
-  function login() {
-    signInWithRedirect(getAuth(app), provider);
-  }
 </script>
 
-{#if !$auth.user}
-  Not logged in!;
-  <button on:click={login}>Login</button>
+{#if showLoading}
+  <AppLoader />
+{:else if !$auth.user}
+  <UnauthenticatedApp />
 {:else}
   <Router {routes} />
 {/if}
