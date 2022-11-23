@@ -1,13 +1,40 @@
 <script lang="ts">
     import { Alert, Button, TextInput } from "@specialdoom/proi-ui";
+    import { onMount } from "svelte";
     import NothingToDoState from "../../icons/NothingToDoState.svelte";
+    import {
+        addTodoForUser,
+        getTodosForUser,
+    } from "../../services/firestore-todos";
+    import { auth } from "../../stores/auth";
+    import { timeline } from "../../stores/days";
+    import type { Todo } from "../../utils/types";
 
-    let todos = [];
+    let todos: Todo[] = [];
     let todo = "";
 
     function addTodo() {
-        todos = [...todos, todo];
+        const newTodo = {
+            title: todo,
+            active: true,
+            date: $timeline.current,
+        };
+
+        todos = [...todos, { ...newTodo }];
+
+        addTodoForUser($auth.uid, { ...newTodo });
+
         todo = "";
+    }
+
+    onMount(async () => {
+        todos = await getTodosForUser($auth.uid, $timeline.current);
+    });
+
+    $: {
+        getTodosForUser($auth.uid, $timeline.current).then((data) => {
+            todos = data;
+        });
     }
 
     $: isEmpty = todos.length === 0;
@@ -17,7 +44,7 @@
     <div class="todos" class:center={isEmpty}>
         {#if !isEmpty}
             {#each todos as todo}
-                <Alert title={todo} closable />
+                <Alert title={todo.title} closable />
             {/each}
         {:else}
             <NothingToDoState />

@@ -12,12 +12,12 @@ export async function getTasksForUser(uid: string, date: Dayjs) {
 
     const tasks = [];
 
-    const q = query(tasksRef, where("dateId", "==", dateId));
+    const q = query(tasksRef, where("uid", "==", uid), where("dateId", "==", dateId));
 
     const qSnapshot = await getDocs(q);
 
     qSnapshot.forEach(doc => {
-        if (doc.id === uid) tasks.push(doc.data())
+        tasks.push(doc.data())
     });
 
     return tasks;
@@ -26,14 +26,15 @@ export async function getTasksForUser(uid: string, date: Dayjs) {
 export function addTaskForUser(uid: string, task: Task) {
     const dateId = getDayId(task.date)
 
-    setDoc(doc(tasksRef, uid), {
+    setDoc(doc(tasksRef), {
         title: task.title,
         description: task.description,
         type: task.type,
-        dateId
+        dateId,
+        uid
     })
-        .then(() => toaster.success("Task added in database!"))
+        .then(() => toaster.success("Task uploaded successfully!"))
         .catch(e => {
-            toaster.error("Task upload failed", e.message)
+            toaster.error("Error while adding task!", e.message)
         })
 }

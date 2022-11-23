@@ -2,27 +2,15 @@
     import TimelineArea from "./TimelineArea.svelte";
     import TimelineItem from "./TimelineItem.svelte";
     import NoTimelineState from "../../icons/NoTimelineState.svelte";
-    import { current, days } from "../../stores/days";
-    import { auth } from "../../stores/auth";
-    import { getDayId } from "../../utils/day";
     import { TASKS } from "../../utils/task";
-    import { onMount } from "svelte";
-    import { getTasksForUser } from "../../services/firestore-tasks";
-
-    onMount(async () => {
-        const tasks = await getTasksForUser($auth.uid, $current);
-
-        $days[getDayId($current)].tasks = tasks;
-    });
-
-    $: tasks = $days[getDayId($current)]?.tasks ?? [];
+    import { timeline } from "../../stores/days";
 </script>
 
-{#if tasks.length === 0}
+{#if $timeline.tasks.length === 0}
     <div class="empty-state">
         <NoTimelineState />
         <p>
-            {$current.isToday()
+            {$timeline.current.isToday()
                 ? `Today's timeline of yours is empty!`
                 : `This day's timeline of yours is empty`}
         </p>
@@ -30,7 +18,7 @@
 {:else}
     <TimelineArea>
         <div class="all-timelines">
-            {#each tasks as task}
+            {#each $timeline.tasks as task}
                 <TimelineItem title={task.title} icon={TASKS[task.type]}>
                     {task.description}
                 </TimelineItem>

@@ -1,21 +1,24 @@
 <script lang="ts">
     import type { Task } from "../../utils/types";
     import { Dialog, FormItem, Radio, TextInput } from "@specialdoom/proi-ui";
-    import { newTask } from "../../stores/days";
     import { generateNewTask, TASKS } from "../../utils/task";
-    import { current } from "../../stores/days";
+    import { timeline } from "../../stores/days";
+    import { auth } from "../../stores/auth";
+    import { addTaskForUser } from "../../services/firestore-tasks";
 
     export let visible: boolean = true;
 
     let task: Task = {
-        date: $current,
+        date: $timeline.current,
         title: "",
         description: "",
         type: "custom",
     };
 
     function addNewTask() {
-        newTask($current.format("DD/MM/YYYY"), { ...task });
+        $timeline.tasks = [...$timeline.tasks, { ...task }];
+
+        addTaskForUser($auth.uid, { ...task });
 
         task = generateNewTask();
     }
@@ -23,7 +26,7 @@
 
 <Dialog
     bind:visible
-    title="🗒️ Add new task: {$current.format('DD/MM/YYYY, HH:mm')}"
+    title="🗒️ Add new task: {$timeline.current.format('DD/MM/YYYY, HH:mm')}"
     on:ok={addNewTask}
     on:ok
 >
