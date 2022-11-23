@@ -13,6 +13,18 @@
     let todos: Todo[] = [];
     let todo = "";
 
+    onMount(async () => {
+        todos = await getTodosForUser($auth.uid, $timeline.current);
+    });
+
+    $: {
+        getTodosForUser($auth.uid, $timeline.current).then((data) => {
+            todos = data;
+        });
+    }
+
+    $: isEmpty = todos.length === 0;
+
     function addTodo() {
         const newTodo = {
             title: todo,
@@ -27,24 +39,18 @@
         todo = "";
     }
 
-    onMount(async () => {
-        todos = await getTodosForUser($auth.uid, $timeline.current);
-    });
-
-    $: {
-        getTodosForUser($auth.uid, $timeline.current).then((data) => {
-            todos = data;
-        });
+    function onKeyDownHandler(event: KeyboardEvent) {
+        if (event.key === "Enter" && todo !== "") {
+            addTodo();
+        }
     }
-
-    $: isEmpty = todos.length === 0;
 </script>
 
 <div class="todos-container">
     <div class="todos" class:center={isEmpty}>
         {#if !isEmpty}
             {#each todos as todo}
-                <Alert title={todo.title} closable />
+                <Alert title={todo.title} />
             {/each}
         {:else}
             <NothingToDoState />
@@ -54,9 +60,9 @@
         <TextInput
             placeholder="Add new todo"
             bind:value={todo}
-            on:keydown={() => console.log("keyfown")}
+            on:keydown={onKeyDownHandler}
         />
-        <Button on:click={addTodo}>+</Button>
+        <Button on:click={addTodo} disabled={todo === ""}>+</Button>
     </div>
 </div>
 
@@ -89,6 +95,7 @@
         display: inline-flex;
         justify-content: space-between;
         height: 10%;
+        gap: 4px;
         align-items: center;
     }
 </style>

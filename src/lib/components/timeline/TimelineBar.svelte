@@ -24,7 +24,9 @@
         <Button on:click={() => changeDay(1)}>Next day</Button>
       {/if}
     </div>
-    <TextInput placeholder="Search task" />
+    <div style:width="200px">
+      <TextInput placeholder="Search task" />
+    </div>
     <Button on:click={() => (visible = true)}>Add task</Button>
   </div>
   <span class:day-of-the-week={true}>{$timeline.current.format("dddd")}</span>
