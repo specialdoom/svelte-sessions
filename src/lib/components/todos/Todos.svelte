@@ -69,7 +69,7 @@
     <div class="todos" class:center={isEmpty}>
         {#if !isEmpty}
             {#each todos as todo}
-                <Alert title={todo.title} closable on:close={() => onTodoClose(todo)}/>
+                <Alert title={todo.title} closable={$timeline.current.isToday()} on:close={() => onTodoClose(todo)}/>
             {/each}
         {:else}
             <NothingToDoState />
