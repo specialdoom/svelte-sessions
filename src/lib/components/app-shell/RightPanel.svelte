@@ -14,4 +14,10 @@
     display: flex;
     flex-direction: column;
   }
+
+  @media only screen and (max-width: 800px) {
+    aside.right-side-bar {
+      display: none;
+    }
+  }
 </style>

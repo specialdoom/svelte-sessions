@@ -10,7 +10,9 @@
   {#if icon}
     <svelte:component this={icon} class="square" {active} />
   {/if}
-  <slot />
+  <span class="name">
+    <slot />
+  </span>
 </div>
 
 <style>
@@ -40,5 +42,15 @@
       rgba(115, 191, 176, 0.8524452017134979) 100%
     );
     color: #ffffff;
+  }
+
+  @media only screen and (max-width: 800px) {
+    div {
+      justify-content: center;
+    }
+
+    .name {
+      display: none;
+    }
   }
 </style>

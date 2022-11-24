@@ -77,7 +77,7 @@
         padding-right: 20px;
     }
 
-    @media all and (max-width: 768px) {
+    @media all and (max-width: 800px) {
         .single-timeline:nth-child(2n) .timeline-text {
             padding-left: 20px;
             padding-right: 0;

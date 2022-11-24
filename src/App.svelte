@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onAuthStateChanged } from "firebase/auth";
+  import { onAuthStateChanged, signOut } from "firebase/auth";
   import { Router } from "@roxi/routify";
   import { routes } from "../.routify/routes";
   import { onMount } from "svelte";

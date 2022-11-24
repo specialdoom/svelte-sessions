@@ -42,7 +42,7 @@
         top: 0;
     }
 
-    @media all and (max-width: 768px) {
+    @media all and (max-width: 800px) {
         .all-timelines::before {
             right: unset;
             top: 0;

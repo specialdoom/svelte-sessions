@@ -11,4 +11,10 @@
     background-color: #fdfafe;
     padding: 8px;
   }
+
+  @media only screen and (max-width: 500px) {
+    aside.left-side-bar {
+      display: none;
+    }
+  }
 </style>

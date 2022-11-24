@@ -11,4 +11,16 @@
     background: #fdfafe;
     padding: 8px;
   }
+
+  @media only screen and (max-width: 800px) {
+    main{
+      width: 85%
+    }
+  }
+
+  @media only screen and (max-width: 500px) {
+    main{
+      width: 100%
+    }
+  }
 </style>

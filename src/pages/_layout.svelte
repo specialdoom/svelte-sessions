@@ -13,6 +13,8 @@
     import Todos from "../lib/components/todos/Todos.svelte";
     import Hello from "../lib/components/hello/Hello.svelte";
     import { settings } from "../lib/stores/app";
+    import LogoutIcon from "../lib/icons/LogoutIcon.svelte";
+    import {getAuth, signOut} from "firebase/auth";
 
     const routes = [
         {
@@ -29,6 +31,10 @@
 
     $: hasSettings =
         $settings.weather || $settings.todos || $settings.greetings;
+
+    function logout(){
+        signOut(getAuth())
+    }
 </script>
 
 <AppShell>
@@ -44,6 +50,14 @@
                     {route.name}
                 </SideNavItem>
             {/each}
+            <SideNavItem
+                    icon={LogoutIcon}
+                    on:click={logout}
+                    slot="trail"
+                    active
+            >
+                Logout
+            </SideNavItem>
         </SideNav>
     </LeftPanel>
     <Content>

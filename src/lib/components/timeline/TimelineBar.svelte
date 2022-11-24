@@ -24,9 +24,6 @@
         <Button on:click={() => changeDay(1)}>Next day</Button>
       {/if}
     </div>
-    <div style:width="200px">
-      <TextInput placeholder="Search task" />
-    </div>
     {#if $timeline.current.isToday()}
       <Button on:click={() => (visible = true)}>Add task</Button>
     {/if}
@@ -63,5 +60,11 @@
 
   span.day-of-the-week {
     font-size: 12px;
+  }
+
+  @media only screen and (max-width: 500px) {
+   div.timeline-bar {
+      display: none;
+    }
   }
 </style>
