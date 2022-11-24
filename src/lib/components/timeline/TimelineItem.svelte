@@ -1,16 +1,15 @@
 <script lang="ts">
+    import TimelineCard from "./TimelineCard.svelte";
+
     export let title: string = "";
     export let icon: string = "💻";
 </script>
 
 <div class="single-timeline d-flex-2">
-    <div class="timeline-blank" />
+    <div class="timeline-blank"></div>
     <div class="timeline-text d-flex-2">
-        <span>
-            <h6>{icon} - {title}</h6>
-            — <slot />
-        </span>
-        <div class="timeline-dot" />
+    <TimelineCard {title} {icon}><slot /></TimelineCard>
+        <div class="timeline-dot"></div>
     </div>
 </div>
 
