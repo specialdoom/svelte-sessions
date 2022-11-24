@@ -19,9 +19,7 @@
     <TimelineArea>
         <div class="all-timelines">
             {#each $timeline.tasks as task}
-                <TimelineItem title={task.title} icon={TASKS[task.type]}>
-                    {task.description}
-                </TimelineItem>
+                <TimelineItem {task} icon={TASKS[task.type]} />
             {/each}
         </div>
     </TimelineArea>

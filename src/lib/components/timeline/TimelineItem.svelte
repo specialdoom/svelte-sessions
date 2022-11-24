@@ -1,14 +1,15 @@
 <script lang="ts">
     import TimelineCard from "./TimelineCard.svelte";
+    import type {Task} from "../../utils/types";
 
-    export let title: string = "";
     export let icon: string = "💻";
+    export let task: Task;
 </script>
 
 <div class="single-timeline d-flex-2">
     <div class="timeline-blank"></div>
     <div class="timeline-text d-flex-2">
-    <TimelineCard {title} {icon}><slot /></TimelineCard>
+    <TimelineCard title={task.title} description={task.description} {icon}><slot /></TimelineCard>
         <div class="timeline-dot"></div>
     </div>
 </div>
@@ -30,7 +31,7 @@
 
     .timeline-text {
         width: 50%;
-        padding-left: 30px;
+        padding-left: 20px;
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
         position: relative;
@@ -47,10 +48,6 @@
         color: #000;
         display: block;
         width: 100%;
-    }
-
-    .single-timeline:nth-child(even) .timeline-text span {
-        text-align: right;
     }
 
     .timeline-dot {
@@ -77,13 +74,12 @@
 
     .single-timeline:nth-child(even) .timeline-text {
         padding-left: 0;
-        padding-right: 30px;
-        text-align: right;
+        padding-right: 20px;
     }
 
     @media all and (max-width: 768px) {
         .single-timeline:nth-child(2n) .timeline-text {
-            padding-left: 30px;
+            padding-left: 20px;
             padding-right: 0;
             text-align: left;
         }

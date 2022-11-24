@@ -21,6 +21,7 @@ export type Days = {
 }
 
 export interface Todo {
+    id: string;
     title: string;
     active: boolean;
     date: dayjs.Dayjs;

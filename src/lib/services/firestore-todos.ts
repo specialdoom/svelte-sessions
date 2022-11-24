@@ -1,6 +1,6 @@
 import { toaster } from "@specialdoom/proi-ui";
 import type { Dayjs } from "dayjs";
-import { collection, query, where, getDocs, setDoc, doc, documentId } from "firebase/firestore";
+import { collection, query, where, getDocs, addDoc, doc, updateDoc, documentId} from "firebase/firestore";
 import { firestore } from "../../firebase";
 import { getDayId } from "../utils/day";
 import type { Task, Todo } from "../utils/types";
@@ -17,20 +17,32 @@ export async function getTodosForUser(uid: string, date: Dayjs) {
     const qSnapshot = await getDocs(q);
 
     qSnapshot.forEach(doc => {
-        todos.push(doc.data())
+        todos.push({id: doc.id, ...doc.data()})
     });
 
     return todos;
 }
 
-export function addTodoForUser(uid: string, todo: Todo) {
+export async function addTodoForUser(uid: string, todo: Todo) {
     const dateId = getDayId(todo.date)
 
-    setDoc(doc(todosRef), {
+    const docRef = await addDoc(todosRef, {
         title: todo.title,
         active: todo.active,
         dateId,
         uid
+    })
+        .catch(e => {
+            toaster.error("Error while adding task!", e.message)
+        })
+
+    // @ts-ignore
+    return docRef.id;
+}
+
+export function inactivateTodo(todoId: string) {
+    updateDoc(doc(todosRef, todoId), {
+        active: false,
     })
         .catch(e => {
             toaster.error("Error while adding task!", e.message)

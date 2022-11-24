@@ -4,7 +4,7 @@
     import NothingToDoState from "../../icons/NothingToDoState.svelte";
     import {
         addTodoForUser,
-        getTodosForUser,
+        getTodosForUser, inactivateTodo,
     } from "../../services/firestore-todos";
     import { auth } from "../../stores/auth";
     import { timeline } from "../../stores/days";
@@ -25,8 +25,9 @@
 
     $: isEmpty = todos.length === 0;
 
-    function addTodo() {
+    async function addTodo() {
         const newTodo = {
+            id: "",
             title: todo,
             active: true,
             date: $timeline.current,
@@ -34,7 +35,9 @@
 
         todos = [...todos, { ...newTodo }];
 
-        addTodoForUser($auth.uid, { ...newTodo });
+        const todoId = await addTodoForUser($auth.uid, { ...newTodo });
+
+        newTodo.id = todoId;
 
         todo = "";
     }
@@ -44,26 +47,32 @@
             addTodo();
         }
     }
+
+    function onTodoClose(todoId: string){
+        inactivateTodo(todoId);
+    }
 </script>
 
 <div class="todos-container">
     <div class="todos" class:center={isEmpty}>
         {#if !isEmpty}
             {#each todos as todo}
-                <Alert title={todo.title} />
+                <Alert title={todo.title} closable on:close={() => onTodoClose(todo.id)}/>
             {/each}
         {:else}
             <NothingToDoState />
         {/if}
     </div>
-    <div class="control">
-        <TextInput
-            placeholder="Add new todo"
-            bind:value={todo}
-            on:keydown={onKeyDownHandler}
-        />
-        <Button on:click={addTodo} disabled={todo === ""}>+</Button>
-    </div>
+    {#if $timeline.current.isToday()}
+        <div class="control">
+            <TextInput
+                placeholder="Add new todo"
+                bind:value={todo}
+                on:keydown={onKeyDownHandler}
+            />
+            <Button on:click={addTodo} disabled={todo === ""}>+</Button>
+        </div>
+    {/if}
 </div>
 
 <style>

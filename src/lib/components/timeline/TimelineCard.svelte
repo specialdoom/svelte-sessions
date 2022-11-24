@@ -1,6 +1,7 @@
 <script lang="ts">
     export let title: string = "";
     export let icon: string = "💻";
+    export let description: string = "";
 </script>
 
 <div class="timeline-card">
@@ -8,9 +9,11 @@
         <span class="timeline-icon">{icon}</span>
         {title}
     </div>
-    <div class="timeline-description">
-        <slot />
-    </div>
+    {#if description !== ""}
+        <div class="timeline-description">
+            {description}
+        </div>
+    {/if}
 </div>
 
 <style>
