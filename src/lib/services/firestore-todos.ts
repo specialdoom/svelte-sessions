@@ -20,7 +20,7 @@ export async function getTodosForUser(uid: string, date: Dayjs) {
         todos.push({id: doc.id, ...doc.data()})
     });
 
-    return todos;
+    return todos.filter(t => t.active);
 }
 
 export async function addTodoForUser(uid: string, todo: Todo) {

@@ -9,6 +9,8 @@
     import { auth } from "../../stores/auth";
     import { timeline } from "../../stores/days";
     import type { Todo } from "../../utils/types";
+    import {generateNewTask} from "../../utils/task";
+    import {addTaskForUser} from "../../services/firestore-tasks";
 
     let todos: Todo[] = [];
     let todo = "";
@@ -48,8 +50,18 @@
         }
     }
 
-    function onTodoClose(todoId: string){
-        inactivateTodo(todoId);
+    function onTodoClose(todo: Todo){
+        inactivateTodo(todo.id);
+
+        const task = generateNewTask();
+
+        task.title = todo.title;
+
+        $timeline.tasks = [...$timeline.tasks, {...task}];
+
+        addTaskForUser($auth.uid, task);
+
+        update
     }
 </script>
 
@@ -57,7 +69,7 @@
     <div class="todos" class:center={isEmpty}>
         {#if !isEmpty}
             {#each todos as todo}
-                <Alert title={todo.title} closable on:close={() => onTodoClose(todo.id)}/>
+                <Alert title={todo.title} closable on:close={() => onTodoClose(todo)}/>
             {/each}
         {:else}
             <NothingToDoState />
