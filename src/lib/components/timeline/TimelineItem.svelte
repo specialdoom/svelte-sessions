@@ -9,7 +9,7 @@
 <div class="single-timeline d-flex-2">
     <div class="timeline-blank"></div>
     <div class="timeline-text d-flex-2">
-    <TimelineCard title={task.title} description={task.description} {icon}><slot /></TimelineCard>
+    <TimelineCard {task} {icon} />
         <div class="timeline-dot"></div>
     </div>
 </div>

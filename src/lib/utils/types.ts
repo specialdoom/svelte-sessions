@@ -9,6 +9,7 @@ export interface Task {
     title: string;
     description: string;
     type: TaskType;
+    timestamp: Date;
 }
 
 export interface Day {

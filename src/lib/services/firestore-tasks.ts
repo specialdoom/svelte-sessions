@@ -1,26 +1,34 @@
 import { toaster } from "@specialdoom/proi-ui";
-import type { Dayjs } from "dayjs";
-import { collection, query, where, getDocs, setDoc, doc, documentId } from "firebase/firestore";
+import { collection, query, where, getDocs, setDoc, doc, orderBy } from "firebase/firestore";
 import { firestore } from "../../firebase";
 import { getDayId } from "../utils/day";
 import type { Task } from "../utils/types";
+import type {Dayjs} from "dayjs";
+import {tasks as tasksStore} from "../stores/days";
 
 const tasksRef = collection(firestore, 'tasks');
 
 export async function getTasksForUser(uid: string, date: Dayjs) {
-    const dateId = getDayId(date)
+    const dateId = getDayId(date);
 
-    const tasks = [];
+    const tasks: Task[] = [];
 
-    const q = query(tasksRef, where("uid", "==", uid), where("dateId", "==", dateId));
+    console.log("here");
+
+    const q = query(tasksRef,
+        where("uid", "==", uid),
+        where("dateId", "==", dateId),
+        orderBy("date"));
 
     const qSnapshot = await getDocs(q);
 
     qSnapshot.forEach(doc => {
-        tasks.push(doc.data())
+        const task = {...doc.data(), timestamp: doc.data().date.toDate()} as Task;
+
+        tasks.push(task);
     });
 
-    return tasks;
+    tasksStore.set(tasks);
 }
 
 export function addTaskForUser(uid: string, task: Task) {
@@ -30,6 +38,7 @@ export function addTaskForUser(uid: string, task: Task) {
         title: task.title,
         description: task.description,
         type: task.type,
+        date: new Date(),
         dateId,
         uid
     })

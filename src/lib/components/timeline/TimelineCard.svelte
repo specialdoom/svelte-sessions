@@ -1,19 +1,24 @@
 <script lang="ts">
-    export let title: string = "";
-    export let icon: string = "💻";
-    export let description: string = "";
+    import dayjs from "../../utils/day-js";
+    import type {Task} from "../../utils/types";
+
+    export let icon: string;
+    export let task: Task;
 </script>
 
 <div class="timeline-card">
     <div class="timeline-info">
         <span class="timeline-icon">{icon}</span>
-        {title}
+        {task.title}
     </div>
-    {#if description !== ""}
+    {#if task.description !== ""}
         <div class="timeline-description">
-            {description}
+            {task.description}
         </div>
     {/if}
+    <div class="timeline-time">
+        {dayjs(task.timestamp).format("HH:mm")}
+    </div>
 </div>
 
 <style>
@@ -48,5 +53,10 @@
 
     .timeline-description {
         font-size: 12px;
+    }
+
+    .timeline-time {
+        font-size: 8px;
+        color: var(--n600);
     }
 </style>
