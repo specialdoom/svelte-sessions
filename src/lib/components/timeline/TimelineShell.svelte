@@ -1,4 +1,4 @@
-<script>
+<script lang="ts" >
   import Timeline from "./Timeline.svelte";
   import TimelineBar from "./TimelineBar.svelte";
 </script>

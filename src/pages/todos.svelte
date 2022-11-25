@@ -4,7 +4,7 @@
 </script>
 
 {#if window.innerWidth < 800}
-<Todos />
+    <Todos />
 {:else}
     {$goto("/")}
 {/if}

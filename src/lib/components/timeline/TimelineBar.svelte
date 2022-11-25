@@ -1,15 +1,12 @@
 <script lang="ts">
-  import { Button, TextInput } from "@specialdoom/proi-ui";
-  import { timeline } from "../../stores/days";
+  import { Button } from "@specialdoom/proi-ui";
+  import { current } from "../../stores/days";
   import NewTaskDialog from "../dialogs/NewTaskDialog.svelte";
 
   let visible: boolean = false;
 
   function changeDay(dayToAdd: number) {
-    timeline.update((t) => ({
-      ...t,
-      current: t.current.add(dayToAdd, "day"),
-    }));
+    $current = $current.add(dayToAdd, "day");
   }
 </script>
 
@@ -18,15 +15,15 @@
 <div class:timeline-bar={true}>
   <div class:timeline-bar-header={true}>
     <div class:date-details={true}>
-      <span class:date={true}>{$timeline.current.format("MMMM D")}</span>
-      <span class:day-of-the-week={true}>{$timeline.current.format("dddd")}</span>
+      <span class:date={true}>{$current.format("MMMM D")}</span>
+      <span class:day-of-the-week={true}>{$current.format("dddd")}</span>
     </div>
     <div class:controls={true}>
       <Button on:click={() => changeDay(-1)} variant="ghost">Previous day</Button>
-      {#if $timeline.current.isToday()}
+      {#if $current.isToday()}
         <Button on:click={() => (visible = true)}>Add task</Button>
       {/if}
-      {#if !$timeline.current.isToday()}
+      {#if !$current.isToday()}
         <Button on:click={() => changeDay(1)} variant="ghost">Next day</Button>
       {/if}
     </div>

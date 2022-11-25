@@ -1,13 +1,13 @@
 <script lang="ts">
     import { Alert, Button, TextInput } from "@specialdoom/proi-ui";
-    import { onMount } from "svelte";
+    import {onMount} from "svelte";
     import NothingToDoState from "../../states/NothingToDoState.svelte";
     import {
         addTodoForUser,
         getTodosForUser, inactivateTodo,
     } from "../../services/firestore-todos";
     import { auth } from "../../stores/auth";
-    import { timeline } from "../../stores/days";
+    import { current } from "../../stores/days";
     import type { Todo } from "../../utils/types";
     import {generateNewTask} from "../../utils/task";
     import {addTaskForUser} from "../../services/firestore-tasks";
@@ -16,11 +16,11 @@
     let todo = "";
 
     onMount(async () => {
-        todos = await getTodosForUser($auth.uid, $timeline.current);
+        todos = await getTodosForUser($auth.uid, $current);
     });
 
     $: {
-        getTodosForUser($auth.uid, $timeline.current).then((data) => {
+        getTodosForUser($auth.uid, $current).then((data) => {
             todos = data;
         });
     }
@@ -32,7 +32,7 @@
             id: "",
             title: todo,
             active: true,
-            date: $timeline.current,
+            date: $current,
         };
 
         todos = [...todos, { ...newTodo }];
@@ -57,8 +57,6 @@
 
         task.title = todo.title;
 
-        $timeline.tasks = [...$timeline.tasks, {...task}];
-
         addTaskForUser($auth.uid, task);
     }
 </script>
@@ -67,13 +65,13 @@
     <div class="todos" class:center={isEmpty}>
         {#if !isEmpty}
             {#each todos as todo}
-                <Alert title={todo.title} closable={$timeline.current.isToday()} on:close={() => onTodoClose(todo)}/>
+                <Alert title={todo.title} closable={$current.isToday()} on:close={() => onTodoClose(todo)}/>
             {/each}
         {:else}
             <NothingToDoState />
         {/if}
     </div>
-    {#if $timeline.current.isToday()}
+    {#if $current.isToday()}
         <div class="control">
             <TextInput
                 placeholder="Add new todo"
