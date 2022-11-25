@@ -3,7 +3,7 @@
     import { signInWithRedirect } from "firebase/auth";
     import { firebaseAuth, provider } from "../../../firebase";
     import GoogleIcon from "../../icons/GoogleIcon.svelte";
-    import UnauthenticatedState from "../../icons/UnauthenticatedState.svelte";
+    import UnauthenticatedState from "../../states/UnauthenticatedState.svelte";
     import SideNavBrand from "../nav/SideNavBrand.svelte";
 
     function login() {

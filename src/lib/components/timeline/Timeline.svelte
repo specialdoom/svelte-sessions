@@ -1,7 +1,7 @@
 <script>
     import TimelineArea from "./TimelineArea.svelte";
     import TimelineItem from "./TimelineItem.svelte";
-    import NoTimelineState from "../../icons/NoTimelineState.svelte";
+    import NoTimelineState from "../../states/NoTimelineState.svelte";
     import { TASKS } from "../../utils/task";
     import { timeline } from "../../stores/days";
 </script>

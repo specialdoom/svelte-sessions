@@ -1,7 +1,7 @@
 <script lang="ts">
     import { Alert, Button, TextInput } from "@specialdoom/proi-ui";
     import { onMount } from "svelte";
-    import NothingToDoState from "../../icons/NothingToDoState.svelte";
+    import NothingToDoState from "../../states/NothingToDoState.svelte";
     import {
         addTodoForUser,
         getTodosForUser, inactivateTodo,
@@ -60,8 +60,6 @@
         $timeline.tasks = [...$timeline.tasks, {...task}];
 
         addTaskForUser($auth.uid, task);
-
-        update
     }
 </script>
 
@@ -118,5 +116,11 @@
         height: 10%;
         gap: 4px;
         align-items: center;
+    }
+
+    @media only screen and (max-width: 800px) {
+        .todos-container {
+           height: 100%;
+        }
     }
 </style>

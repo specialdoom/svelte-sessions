@@ -4,9 +4,11 @@
 
   export let icon: Constructor<SvelteComponent> | undefined = undefined;
   export let active: boolean = false;
+  export let outline: boolean = false;
+  export let tablet: boolean = false;
 </script>
 
-<div on:click on:keydown class:active>
+<div on:click on:keydown class:active class:outline class:tablet>
   {#if icon}
     <svelte:component this={icon} class="square" {active} />
   {/if}
@@ -44,6 +46,18 @@
     color: #ffffff;
   }
 
+  div.outline {
+    border: 2px solid var(--g400);
+  }
+
+  div.outline:hover {
+    box-shadow: unset;
+  }
+
+  .tablet {
+    display: none;
+  }
+
   @media only screen and (max-width: 800px) {
     div {
       justify-content: center;
@@ -51,6 +65,10 @@
 
     .name {
       display: none;
+    }
+
+    .tablet {
+      display: flex;
     }
   }
 </style>

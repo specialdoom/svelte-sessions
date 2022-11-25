@@ -17,18 +17,20 @@
 
 <div class:timeline-bar={true}>
   <div class:timeline-bar-header={true}>
-    <div class:date-and-controls={true}>
-      <span class:date={true}>{$timeline.current.format("MMMM, D")}</span>
-      <Button on:click={() => changeDay(-1)}>Previous day</Button>
+    <div class:date-details={true}>
+      <span class:date={true}>{$timeline.current.format("MMMM D")}</span>
+      <span class:day-of-the-week={true}>{$timeline.current.format("dddd")}</span>
+    </div>
+    <div class:controls={true}>
+      <Button on:click={() => changeDay(-1)} variant="ghost">Previous day</Button>
+      {#if $timeline.current.isToday()}
+        <Button on:click={() => (visible = true)}>Add task</Button>
+      {/if}
       {#if !$timeline.current.isToday()}
-        <Button on:click={() => changeDay(1)}>Next day</Button>
+        <Button on:click={() => changeDay(1)} variant="ghost">Next day</Button>
       {/if}
     </div>
-    {#if $timeline.current.isToday()}
-      <Button on:click={() => (visible = true)}>Add task</Button>
-    {/if}
   </div>
-  <span class:day-of-the-week={true}>{$timeline.current.format("dddd")}</span>
 </div>
 
 <style>
@@ -47,10 +49,9 @@
     gap: 16px;
   }
 
-  div.date-and-controls {
+  div.date-details {
     display: flex;
-    align-items: center;
-    gap: 16px;
+    flex-direction: column;
   }
 
   span.date {
@@ -63,8 +64,15 @@
   }
 
   @media only screen and (max-width: 500px) {
-   div.timeline-bar {
-      display: none;
+    div.timeline-bar-header {
+      flex-direction: column;
+    }
+
+    .date-details {
+      width: 100%;
+      align-items: center;
+      display: flex;
+      gap: 8px;
     }
   }
 </style>

@@ -14,7 +14,8 @@
 
   @media only screen and (max-width: 500px) {
     aside.left-side-bar {
-      display: none;
+      height: 10%;
+      width: 100%;
     }
   }
 </style>

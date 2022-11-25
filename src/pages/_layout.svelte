@@ -15,18 +15,27 @@
     import { settings } from "../lib/stores/app";
     import LogoutIcon from "../lib/icons/LogoutIcon.svelte";
     import {getAuth, signOut} from "firebase/auth";
+    import TasksIcon from "../lib/icons/TasksIcon.svelte";
 
     const routes = [
         {
             href: "/index",
             name: "Timeline",
             icon: DashboardIcon,
+            tablet: false
+        },
+        {
+            href: "/todos",
+            name: "Todos",
+            icon: TasksIcon,
+            tablet: true
         },
         {
             href: "/settings",
             name: "Settings",
             icon: SettingsIcon,
-        },
+            tablet: false
+        }
     ];
 
     $: hasSettings =
@@ -42,19 +51,20 @@
         <SideNav>
             <SideNavBrand />
             {#each routes as route}
-                <SideNavItem
-                    icon={route.icon}
-                    on:click={() => $goto(route.href)}
-                    active={$isActive(route.href, {}, { strict: true })}
-                >
-                    {route.name}
-                </SideNavItem>
+                    <SideNavItem
+                        icon={route.icon}
+                        on:click={() => $goto(route.href)}
+                        active={$isActive(route.href, {}, { strict: true })}
+                        tablet={route.tablet}
+                        >
+                        {route.name}
+                    </SideNavItem>
             {/each}
             <SideNavItem
                     icon={LogoutIcon}
                     on:click={logout}
                     slot="trail"
-                    active
+                    outline
             >
                 Logout
             </SideNavItem>

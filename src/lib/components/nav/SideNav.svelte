@@ -21,4 +21,11 @@
   div.side-nav-items {
     gap: 16px;
   }
+
+  @media only screen and (max-width: 500px) {
+    div {
+      flex-direction: row;
+      align-items: center;
+    }
+  }
 </style>

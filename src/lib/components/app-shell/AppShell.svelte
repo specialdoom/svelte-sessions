@@ -15,6 +15,7 @@
   @media only screen and (max-width: 500px) {
     div.shell {
       padding: 4px;
+      flex-direction: column;
     }
   }
 </style>

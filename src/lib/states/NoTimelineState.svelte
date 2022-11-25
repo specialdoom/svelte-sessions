@@ -253,3 +253,13 @@
         fill="white"
     />
 </svg>
+
+
+<style>
+    @media only screen and (max-width: 500px) {
+        svg {
+            max-height: 250px;
+            width: 100%;
+        }
+    }
+</style>

@@ -1,11 +1,11 @@
 
 /**
  * @roxi/routify 2.18.8
- * File generated Thu Nov 24 2022 16:51:02 GMT+0200 (Eastern European Standard Time)
+ * File generated Fri Nov 25 2022 15:22:05 GMT+0200 (Eastern European Standard Time)
  */
 
 export const __version = "2.18.8"
-export const __timestamp = "2022-11-24T14:51:02.466Z"
+export const __timestamp = "2022-11-25T13:22:05.822Z"
 
 //buildRoutes
 import { buildClientTree } from "@roxi/routify/runtime/buildRoutes"
@@ -73,6 +73,31 @@ export const _tree = {
       "path": "/settings",
       "id": "_settings",
       "component": () => import('../src/pages/settings.svelte').then(m => m.default)
+    },
+    {
+      "isFile": true,
+      "isDir": false,
+      "file": "todos.svelte",
+      "filepath": "/todos.svelte",
+      "name": "todos",
+      "ext": "svelte",
+      "badExt": false,
+      "absolutePath": "C:/Users/bbledea/WebstormProjects/considering-svelte/src/pages/todos.svelte",
+      "importPath": "../src/pages/todos.svelte",
+      "isLayout": false,
+      "isReset": false,
+      "isIndex": false,
+      "isFallback": false,
+      "isPage": true,
+      "ownMeta": {},
+      "meta": {
+        "recursive": true,
+        "preload": false,
+        "prerender": true
+      },
+      "path": "/todos",
+      "id": "_todos",
+      "component": () => import('../src/pages/todos.svelte').then(m => m.default)
     }
   ],
   "isLayout": true,
