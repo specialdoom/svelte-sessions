@@ -2,9 +2,9 @@
     import type { Task } from "../../utils/types";
     import {
         Dialog,
-        Dropdown,
         FormItem,
         Radio,
+        Textarea,
         TextInput,
     } from "@specialdoom/proi-ui";
     import { generateNewTask, TASKS } from "../../utils/task";
@@ -41,7 +41,7 @@
         <TextInput placeholder="Task title" bind:value={task.title} />
     </FormItem>
     <FormItem label="Description" description="Optional">
-        <TextInput
+        <Textarea
             placeholder="Task description"
             bind:value={task.description}
         />
