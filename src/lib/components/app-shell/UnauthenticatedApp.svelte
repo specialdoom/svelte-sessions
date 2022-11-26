@@ -12,7 +12,7 @@
 </script>
 
 <div>
-    <SideNavBrand />
+    <img src="logo.png" alt="Dailyhunt logo" />
     <UnauthenticatedState />
     <Button on:click={login}>
         <GoogleIcon active />
@@ -31,10 +31,7 @@
         flex-direction: column;
     }
 
-    div.button {
-        display: inline-flex;
-        width: 100%;
-        height: 100%;
-        gap: 8px;
+    img {
+        width: 300px;
     }
 </style>

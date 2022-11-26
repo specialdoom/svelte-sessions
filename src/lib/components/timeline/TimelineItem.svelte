@@ -1,16 +1,16 @@
 <script lang="ts">
     import TimelineCard from "./TimelineCard.svelte";
-    import type {Task} from "../../utils/types";
+    import type { Task } from "../../utils/types";
 
     export let icon: string = "💻";
     export let task: Task;
 </script>
 
 <div class="single-timeline d-flex-2">
-    <div class="timeline-blank"></div>
+    <div class="timeline-blank" />
     <div class="timeline-text d-flex-2">
-    <TimelineCard {task} {icon} />
-        <div class="timeline-dot"></div>
+        <TimelineCard {task} {icon} />
+        <div class="timeline-dot" />
     </div>
 </div>
 
@@ -35,19 +35,6 @@
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
         position: relative;
-    }
-
-    .timeline-text h6 {
-        color: #000;
-        font-weight: 900;
-        display: inline-block;
-        font-size: 1rem;
-    }
-
-    .timeline-text span {
-        color: #000;
-        display: block;
-        width: 100%;
     }
 
     .timeline-dot {
@@ -95,10 +82,6 @@
 
         .timeline-text {
             width: 100%;
-        }
-
-        .single-timeline:nth-child(even) .timeline-text span {
-            text-align: left !important;
         }
     }
 </style>

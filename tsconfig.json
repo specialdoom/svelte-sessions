@@ -22,7 +22,7 @@
     "src/**/*.svelte"
   ],
   "exclude": [
-    ".routify"
+    "./.routify"
   ],
   "references": [
     {

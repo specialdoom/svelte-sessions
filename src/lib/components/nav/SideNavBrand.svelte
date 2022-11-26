@@ -1,6 +1,6 @@
 <div class:side-nav-brand={true}>
-  <img src="logo.png" alt="Dailyhunt logo" class="larger"/>
-  <img src="logo-icon.png" alt="Dailyhunt logo" class="smaller" />
+  <img src="logo.png" alt="Dailyhunt logo" class="larger" />
+  <img src="logo-face.png" alt="Dailyhunt logo" class="smaller" />
 </div>
 
 <style>
@@ -22,10 +22,10 @@
   @media only screen and (max-width: 800px) {
     img.smaller {
       display: block;
-      height:30px;
+      height: 30px;
     }
 
-    img.larger{
+    img.larger {
       display: none;
     }
   }
