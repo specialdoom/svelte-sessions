@@ -1,16 +1,17 @@
 <script lang="ts">
     import { Alert, Button, TextInput } from "@specialdoom/proi-ui";
-    import {onMount} from "svelte";
+    import { onMount } from "svelte";
     import NothingToDoState from "../../states/NothingToDoState.svelte";
     import {
         addTodoForUser,
-        getTodosForUser, inactivateTodo,
+        getTodosForUser,
+        inactivateTodo,
     } from "../../services/firestore-todos";
     import { auth } from "../../stores/auth";
-    import { current } from "../../stores/days";
+    import { current, tasks } from "../../stores/days";
     import type { Todo } from "../../utils/types";
-    import {generateNewTask} from "../../utils/task";
-    import {addTaskForUser} from "../../services/firestore-tasks";
+    import { generateNewTask } from "../../utils/task";
+    import { addTaskForUser } from "../../services/firestore-tasks";
 
     let todos: Todo[] = [];
     let todo = "";
@@ -35,11 +36,11 @@
             date: $current,
         };
 
-        todos = [...todos, { ...newTodo }];
-
         const todoId = await addTodoForUser($auth.uid, { ...newTodo });
 
         newTodo.id = todoId;
+
+        todos = [...todos, { ...newTodo }];
 
         todo = "";
     }
@@ -50,7 +51,7 @@
         }
     }
 
-    function onTodoClose(todo: Todo){
+    function onTodoClose(todo: Todo) {
         inactivateTodo(todo.id);
 
         const task = generateNewTask();
@@ -59,13 +60,35 @@
 
         addTaskForUser($auth.uid, task);
     }
+
+    function onTodoDragOver(event: DragEvent, todo: Todo) {
+        event.dataTransfer.setData("title", todo.title);
+        event.dataTransfer.setData("isTodo", "true");
+    }
+
+    function onTodoDragEnd(todo: Todo) {
+        console.log(todo);
+        inactivateTodo(todo.id);
+
+        todos = [...todos.filter((td) => td.id !== todo.id)];
+    }
 </script>
 
 <div class="todos-container">
     <div class="todos" class:center={isEmpty}>
         {#if !isEmpty}
             {#each todos as todo}
-                <Alert title={todo.title} closable={$current.isToday()} on:close={() => onTodoClose(todo)}/>
+                <div
+                    draggable="true"
+                    on:dragstart={(ev) => onTodoDragOver(ev, todo)}
+                    on:dragend={() => onTodoDragEnd(todo)}
+                >
+                    <Alert
+                        title={todo.title}
+                        closable={$current.isToday()}
+                        on:close={() => onTodoClose(todo)}
+                    />
+                </div>
             {/each}
         {:else}
             <NothingToDoState />
@@ -118,7 +141,7 @@
 
     @media only screen and (max-width: 800px) {
         .todos-container {
-           height: 100%;
+            height: 100%;
         }
     }
 </style>

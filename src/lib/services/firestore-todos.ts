@@ -1,10 +1,9 @@
 import { toaster } from "@specialdoom/proi-ui";
 import type { Dayjs } from "dayjs";
-import { collection, query, where, getDocs, addDoc, doc, updateDoc, documentId} from "firebase/firestore";
+import { collection, query, where, getDocs, addDoc, doc, updateDoc, documentId } from "firebase/firestore";
 import { firestore } from "../../firebase";
 import { getDayId } from "../utils/day";
-import type { Task, Todo } from "../utils/types";
-import {getTasksForUser} from "./firestore-tasks";
+import type { Todo } from "../utils/types";
 
 const todosRef = collection(firestore, 'todos');
 
@@ -13,12 +12,14 @@ export async function getTodosForUser(uid: string, date: Dayjs) {
 
     const todos = [];
 
+    console.log("here");
+
     const q = query(todosRef, where("uid", "==", uid), where("dateId", "==", dateId));
 
     const qSnapshot = await getDocs(q);
 
     qSnapshot.forEach(doc => {
-        todos.push({id: doc.id, ...doc.data()})
+        todos.push({ id: doc.id, ...doc.data() })
     });
 
     return todos.filter(t => t.active);

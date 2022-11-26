@@ -2,7 +2,7 @@ import type dayjs from "./day-js";
 
 export type Constructor<T> = new (...args: any[]) => T;
 
-export type TaskType = "break" | "eat" | "work" | "custom" | "symptom";
+export type TaskType = "break" | "eat" | "work" | "custom" | "symptom" | "todo";
 
 export interface Task {
     date: dayjs.Dayjs;

@@ -3,8 +3,8 @@ import { collection, query, where, getDocs, setDoc, doc, orderBy } from "firebas
 import { firestore } from "../../firebase";
 import { getDayId } from "../utils/day";
 import type { Task } from "../utils/types";
-import type {Dayjs} from "dayjs";
-import {tasks as tasksStore} from "../stores/days";
+import type { Dayjs } from "dayjs";
+import { tasks as tasksStore } from "../stores/days";
 
 const tasksRef = collection(firestore, 'tasks');
 
@@ -12,8 +12,6 @@ export async function getTasksForUser(uid: string, date: Dayjs) {
     const dateId = getDayId(date);
 
     const tasks: Task[] = [];
-
-    console.log("here");
 
     const q = query(tasksRef,
         where("uid", "==", uid),
@@ -23,7 +21,7 @@ export async function getTasksForUser(uid: string, date: Dayjs) {
     const qSnapshot = await getDocs(q);
 
     qSnapshot.forEach(doc => {
-        const task = {...doc.data(), timestamp: doc.data().date.toDate()} as Task;
+        const task = { ...doc.data(), timestamp: doc.data().date.toDate() } as Task;
 
         tasks.push(task);
     });

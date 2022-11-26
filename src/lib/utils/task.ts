@@ -11,14 +11,19 @@ export const TASKS: Readonly<{
     "work": "⚒️",
     "break": "🛋️",
     "symptom": "🩺",
-    "custom": "💻"
+    "custom": "💻",
+    "todo": "✅"
 })
 
-export function generateNewTask(): Task {
+export function generateNewTask(
+    title: string = "",
+    type: TaskType = "custom",
+    description: string = ""): Task {
     return {
         date: dayjs(),
-        title: "",
-        description: "",
-        type: "custom",
+        title,
+        description,
+        type,
+        timestamp: new Date()
     }
 }

@@ -1,6 +1,12 @@
 <script lang="ts">
     import type { Task } from "../../utils/types";
-    import { Dialog, FormItem, Radio, TextInput } from "@specialdoom/proi-ui";
+    import {
+        Dialog,
+        Dropdown,
+        FormItem,
+        Radio,
+        TextInput,
+    } from "@specialdoom/proi-ui";
     import { generateNewTask, TASKS } from "../../utils/task";
     import { tasks, current } from "../../stores/days";
     import { auth } from "../../stores/auth";
@@ -13,6 +19,7 @@
         title: "",
         description: "",
         type: "custom",
+        timestamp: new Date(),
     };
 
     function addNewTask() {
@@ -40,10 +47,21 @@
         />
     </FormItem>
     <FormItem label="Task type">
-        {#each Object.entries(TASKS) as entry}
-            <Radio value={entry[0]} bind:group={task.type}>
-                {entry[0]}: {entry[1]}
-            </Radio>
-        {/each}
+        <div class="radio-group">
+            {#each Object.entries(TASKS) as entry}
+                <Radio value={entry[0]} bind:group={task.type}>
+                    {entry[1]}
+                </Radio>
+            {/each}
+        </div>
     </FormItem>
 </Dialog>
+
+<style>
+    .radio-group {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        gap: 4px;
+    }
+</style>
