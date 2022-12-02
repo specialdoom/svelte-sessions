@@ -19,19 +19,21 @@
   }
 </script>
 
-<div>
+<div class="unauthenticated">
   <img src="logo.png" alt="Dailyhunt logo" />
   <UnauthenticatedState />
-  <Button on:click={googleLogin}>
-    <GoogleIcon active />Authenticate using Google
-  </Button>
-  <Button on:click={googleLogin}>
-    <FacebookIcon active />Authenticate using Facebook
-  </Button>
+  <div class="actions">
+    <Button on:click={googleLogin}>
+      <GoogleIcon active />Authenticate using Google
+    </Button>
+    <Button on:click={googleLogin}>
+      <FacebookIcon active />Authenticate using Facebook
+    </Button>
+  </div>
 </div>
 
 <style>
-  div {
+  div.unauthenticated {
     height: 100vh;
     width: 100%;
     box-sizing: border-box;
@@ -39,6 +41,14 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
+  }
+
+  div.actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
   }
 
   img {

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onAuthStateChanged, signOut } from "firebase/auth";
+  import { onAuthStateChanged } from "firebase/auth";
   import { Router } from "@roxi/routify";
   import { routes } from "../.routify/routes";
   import { onMount } from "svelte";
@@ -12,7 +12,7 @@
   import { min } from "./lib/stores/days";
   import dayjs from "./lib/utils/day-js";
 
-  let showLoading: boolean = true;
+  let showLoading: boolean;
 
   onMount(async () => {
     showLoading = true;

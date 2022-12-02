@@ -12,8 +12,6 @@ export async function getTodosForUser(uid: string, date: Dayjs) {
 
     const todos = [];
 
-    console.log("here");
-
     const q = query(todosRef, where("uid", "==", uid), where("dateId", "==", dateId));
 
     const qSnapshot = await getDocs(q);
