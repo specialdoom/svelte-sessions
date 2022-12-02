@@ -142,7 +142,7 @@
     justify-content: space-between;
     height: 10%;
     gap: 4px;
-    align-items: center;
+    align-items: flex-end;
   }
 
   @media only screen and (max-width: 800px) {

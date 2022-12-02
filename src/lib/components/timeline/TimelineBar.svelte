@@ -1,7 +1,7 @@
 <script lang="ts">
   import { Button } from "@specialdoom/proi-ui";
   import dayjs from "../../utils/day-js.js";
-  import { current } from "../../stores/days";
+  import { current, min } from "../../stores/days";
   import NewTaskDialog from "../dialogs/NewTaskDialog.svelte";
 
   let visible: boolean = false;
@@ -24,9 +24,11 @@
       <span class:day-of-the-week={true}>{$current.format("dddd")}</span>
     </div>
     <div class:controls={true}>
-      <Button on:click={() => changeDay(-1)} variant="ghost">
-        Previous day
-      </Button>
+      {#if !$min.isSame($current, "day")}
+        <Button on:click={() => changeDay(-1)} variant="ghost">
+          Previous day
+        </Button>
+      {/if}
       {#if $current.isToday()}
         <Button on:click={() => (visible = true)}>Add task</Button>
       {/if}

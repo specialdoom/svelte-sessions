@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onAuthStateChanged, signOut } from "firebase/auth";
+  import { onAuthStateChanged } from "firebase/auth";
   import { Router } from "@roxi/routify";
   import { routes } from "../.routify/routes";
   import { onMount } from "svelte";
@@ -9,8 +9,10 @@
   import AppLoader from "./lib/components/app-shell/AppLoder.svelte";
   import { ToastProvider } from "@specialdoom/proi-ui";
   import { settings } from "./lib/stores/app";
+  import { min } from "./lib/stores/days";
+  import dayjs from "./lib/utils/day-js";
 
-  let showLoading: boolean = true;
+  let showLoading: boolean;
 
   onMount(async () => {
     showLoading = true;
@@ -22,10 +24,11 @@
           uid: user.uid,
           name: user.displayName,
         }));
+
+        min.set(dayjs(user.metadata.creationTime));
       } else {
         auth.update(() => ({ email: "", uid: "", name: "" }));
       }
-
       showLoading = false;
     });
 
