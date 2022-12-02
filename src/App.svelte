@@ -9,6 +9,8 @@
   import AppLoader from "./lib/components/app-shell/AppLoder.svelte";
   import { ToastProvider } from "@specialdoom/proi-ui";
   import { settings } from "./lib/stores/app";
+  import { min } from "./lib/stores/days";
+  import dayjs from "./lib/utils/day-js";
 
   let showLoading: boolean = true;
 
@@ -22,10 +24,11 @@
           uid: user.uid,
           name: user.displayName,
         }));
+
+        min.set(dayjs(user.metadata.creationTime));
       } else {
         auth.update(() => ({ email: "", uid: "", name: "" }));
       }
-
       showLoading = false;
     });
 

@@ -7,17 +7,23 @@ import type {
 export const TASKS: Readonly<{
     [key in TaskType]: string
 }> = Object.freeze({
-    "eat": "🍕",
-    "work": "⚒️",
-    "break": "🛋️",
+    "eating": "🍕",
+    "working": "⚒️",
+    "break": "⏸️",
     "symptom": "🩺",
-    "custom": "💻",
-    "todo": "✅"
+    "default": "🖐️",
+    "todo": "✅",
+    "dancing": "💃",
+    "reading": "📖",
+    "night-out": "🌃",
+    "cooking": "🍳",
+    "cleaning": "🧹",
+    "relaxing": "🛋️"
 })
 
 export function generateNewTask(
     title: string = "",
-    type: TaskType = "custom",
+    type: TaskType = "default",
     description: string = ""): Task {
     return {
         date: dayjs(),

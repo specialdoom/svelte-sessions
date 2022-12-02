@@ -1,5 +1,5 @@
 import { toaster } from "@specialdoom/proi-ui";
-import { collection, query, where, getDocs, setDoc, doc, orderBy } from "firebase/firestore";
+import { collection, query, where, getDocs, setDoc, doc, orderBy, limit } from "firebase/firestore";
 import { firestore } from "../../firebase";
 import { getDayId } from "../utils/day";
 import type { Task } from "../utils/types";
