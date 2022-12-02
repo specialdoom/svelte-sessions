@@ -10,6 +10,7 @@ export interface Task {
     description: string;
     type: TaskType;
     timestamp: Date;
+    todoId?: string;
 }
 
 export interface Day {
