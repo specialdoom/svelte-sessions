@@ -1,5 +1,6 @@
 <script lang="ts">
   import { Button } from "@specialdoom/proi-ui";
+  import dayjs from "../../utils/day-js.js";
   import { current } from "../../stores/days";
   import NewTaskDialog from "../dialogs/NewTaskDialog.svelte";
 
@@ -7,6 +8,10 @@
 
   function changeDay(dayToAdd: number) {
     $current = $current.add(dayToAdd, "day");
+  }
+
+  function toToday() {
+    $current = dayjs();
   }
 </script>
 
@@ -19,11 +24,14 @@
       <span class:day-of-the-week={true}>{$current.format("dddd")}</span>
     </div>
     <div class:controls={true}>
-      <Button on:click={() => changeDay(-1)} variant="ghost">Previous day</Button>
+      <Button on:click={() => changeDay(-1)} variant="ghost">
+        Previous day
+      </Button>
       {#if $current.isToday()}
         <Button on:click={() => (visible = true)}>Add task</Button>
       {/if}
       {#if !$current.isToday()}
+        <Button variant="secondary" on:click={toToday}>Today</Button>
         <Button on:click={() => changeDay(1)} variant="ghost">Next day</Button>
       {/if}
     </div>
