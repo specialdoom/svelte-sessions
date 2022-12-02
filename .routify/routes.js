@@ -1,11 +1,11 @@
 
 /**
  * @roxi/routify 2.18.8
- * File generated Sat Nov 26 2022 19:08:54 GMT+0200 (Eastern European Standard Time)
+ * File generated Fri Dec 02 2022 20:49:02 GMT+0200 (Eastern European Standard Time)
  */
 
 export const __version = "2.18.8"
-export const __timestamp = "2022-11-26T17:08:54.106Z"
+export const __timestamp = "2022-12-02T18:49:02.138Z"
 
 //buildRoutes
 import { buildClientTree } from "@roxi/routify/runtime/buildRoutes"
@@ -22,7 +22,7 @@ export const _tree = {
   "filepath": "/_layout.svelte",
   "root": true,
   "ownMeta": {},
-  "absolutePath": "C:/code/considering-svelte/src/pages/_layout.svelte",
+  "absolutePath": "C:/Users/blede/Documents/code/considering-svelte/src/pages/_layout.svelte",
   "children": [
     {
       "isFile": true,
@@ -32,7 +32,7 @@ export const _tree = {
       "name": "index",
       "ext": "svelte",
       "badExt": false,
-      "absolutePath": "C:/code/considering-svelte/src/pages/index.svelte",
+      "absolutePath": "C:/Users/blede/Documents/code/considering-svelte/src/pages/index.svelte",
       "importPath": "../src/pages/index.svelte",
       "isLayout": false,
       "isReset": false,
@@ -57,7 +57,7 @@ export const _tree = {
       "name": "settings",
       "ext": "svelte",
       "badExt": false,
-      "absolutePath": "C:/code/considering-svelte/src/pages/settings.svelte",
+      "absolutePath": "C:/Users/blede/Documents/code/considering-svelte/src/pages/settings.svelte",
       "importPath": "../src/pages/settings.svelte",
       "isLayout": false,
       "isReset": false,
@@ -82,7 +82,7 @@ export const _tree = {
       "name": "todos",
       "ext": "svelte",
       "badExt": false,
-      "absolutePath": "C:/code/considering-svelte/src/pages/todos.svelte",
+      "absolutePath": "C:/Users/blede/Documents/code/considering-svelte/src/pages/todos.svelte",
       "importPath": "../src/pages/todos.svelte",
       "isLayout": false,
       "isReset": false,
