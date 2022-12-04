@@ -1,9 +1,9 @@
-<div class:shell={true}>
+<div class="app-shell">
   <slot />
 </div>
 
 <style>
-  div.shell {
+  .app-shell {
     height: 100vh;
     width: 100%;
     display: flex;
@@ -13,7 +13,7 @@
   }
 
   @media only screen and (max-width: 500px) {
-    div.shell {
+    .app-shell {
       padding: 4px;
       flex-direction: column;
     }

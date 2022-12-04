@@ -1,21 +1,17 @@
 <script>
   import { Button } from "@specialdoom/proi-ui";
-  import { signInWithRedirect } from "firebase/auth";
-  import {
-    facebookProvider,
-    firebaseAuth,
-    googleProvider,
-  } from "../../../firebase";
-  import FacebookIcon from "../../icons/FacebookIcon.svelte";
+  import { signInAnonymously, signInWithRedirect } from "firebase/auth";
+  import { firebaseAuth, googleProvider } from "../../../firebase";
   import GoogleIcon from "../../icons/GoogleIcon.svelte";
   import UnauthenticatedState from "../../states/UnauthenticatedState.svelte";
+  import UserIcon from "../../icons/UserIcon.svelte";
 
   function googleLogin() {
     signInWithRedirect(firebaseAuth, googleProvider);
   }
 
-  function facebookLogin() {
-    signInWithRedirect(firebaseAuth, facebookProvider);
+  function anonymousLogin() {
+    signInAnonymously(firebaseAuth);
   }
 </script>
 
@@ -24,10 +20,10 @@
   <UnauthenticatedState />
   <div class="actions">
     <Button on:click={googleLogin}>
-      <GoogleIcon active />Authenticate using Google
+      <GoogleIcon active /> Authenticate using Google
     </Button>
-    <Button on:click={googleLogin}>
-      <FacebookIcon active />Authenticate using Facebook
+    <Button on:click={anonymousLogin}>
+      <UserIcon active /> Anonymous
     </Button>
   </div>
 </div>

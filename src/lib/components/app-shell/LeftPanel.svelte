@@ -1,9 +1,9 @@
-<aside class:left-side-bar={true}>
+<aside class="left-side-bar">
   <slot />
 </aside>
 
 <style>
-  aside.left-side-bar {
+  .left-side-bar {
     box-sizing: border-box;
     width: 15%;
     height: 100%;
@@ -13,7 +13,7 @@
   }
 
   @media only screen and (max-width: 500px) {
-    aside.left-side-bar {
+    .left-side-bar {
       height: 10%;
       width: 100%;
     }

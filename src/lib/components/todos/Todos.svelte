@@ -94,6 +94,7 @@
       {/each}
     {:else}
       <NothingToDoState />
+      <span class="todos-empty-state-message">Nothing to do?</span>
     {/if}
   </div>
   {#if $current.isToday()}
@@ -110,7 +111,7 @@
 
 <style>
   .todos-container {
-    height: 85%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     gap: 4px;
@@ -135,6 +136,11 @@
 
   .todos::-webkit-scrollbar {
     display: none;
+  }
+
+  .todos-empty-state-message {
+    font-family: Fredoka;
+    color: var(--g600);
   }
 
   .control {

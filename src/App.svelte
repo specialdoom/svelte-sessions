@@ -18,16 +18,27 @@
     showLoading = true;
 
     onAuthStateChanged(firebaseAuth, (user) => {
+      console.log(user);
       if (user) {
         auth.update(() => ({
           email: user.email,
           uid: user.uid,
           name: user.displayName,
+          isAnonymous: user.isAnonymous,
         }));
+
+        if (user.isAnonymous) {
+          $settings.greetings = false;
+        }
 
         min.set(dayjs(user.metadata.creationTime));
       } else {
-        auth.update(() => ({ email: "", uid: "", name: "" }));
+        auth.update(() => ({
+          email: "",
+          uid: "",
+          name: "",
+          isAnonymous: false,
+        }));
       }
       showLoading = false;
     });

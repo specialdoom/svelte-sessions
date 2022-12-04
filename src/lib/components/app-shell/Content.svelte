@@ -13,13 +13,13 @@
   }
 
   @media only screen and (max-width: 800px) {
-    main{
-      width: 85%
+    main {
+      width: 85%;
     }
   }
 
   @media only screen and (max-width: 500px) {
-    main{
+    main {
       width: 100%;
       height: 90%;
     }
