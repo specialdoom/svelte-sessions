@@ -18,7 +18,8 @@ export const TASKS: Readonly<{
     "night-out": "🌃",
     "cooking": "🍳",
     "cleaning": "🧹",
-    "relaxing": "🛋️"
+    "relaxing": "🛋️",
+    "programming": "💻"
 })
 
 export function generateNewTask(

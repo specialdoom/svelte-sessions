@@ -11,12 +11,16 @@
   import { Spinner } from "@specialdoom/proi-ui";
   import type { Todo } from "../../utils/types";
 
+  let over: boolean = false;
+
   $: {
     getTasksForUser($auth.uid, $current);
   }
 
-  function onTodoDrop(event) {
+  function onTodoDrop(event: DragEvent) {
     if (!event.dataTransfer.getData("todo")) return;
+
+    toggleOverClass(false);
 
     const { title, id } = JSON.parse(
       event.dataTransfer.getData("todo")
@@ -29,12 +33,26 @@
 
     $tasks = [...$tasks, newTask];
   }
+
+  function toggleOverClass(value: boolean) {
+    over = value;
+  }
+
+  function allowDrop() {
+    toggleOverClass(true);
+  }
+
+  function leaveDropZone() {
+    toggleOverClass(false);
+  }
 </script>
 
 <div
   class="timeline"
+  class:over
   on:drop|preventDefault={onTodoDrop}
-  on:dragover|preventDefault
+  on:dragover|preventDefault|stopPropagation={allowDrop}
+  on:dragleave|stopPropagation={leaveDropZone}
 >
   {#await getTasksForUser($auth.uid, $current)}
     <div class="empty-state">
@@ -67,14 +85,21 @@
     height: 100%;
     width: 100%;
     overflow: auto;
+    box-sizing: border-box;
   }
 
   .timeline::-webkit-scrollbar {
     display: none;
   }
 
+  .timeline.over {
+    border: 2px solid var(--p400);
+    border-radius: 8px;
+  }
+
   .all-timelines {
     position: relative;
+    box-sizing: border-box;
   }
 
   .all-timelines::before {
