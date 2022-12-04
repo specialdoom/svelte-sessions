@@ -37,7 +37,6 @@
     };
 
     const todoId = await addTodoForUser($auth.uid, { ...newTodo });
-
     newTodo.id = todoId;
 
     todos = [...todos, { ...newTodo }];

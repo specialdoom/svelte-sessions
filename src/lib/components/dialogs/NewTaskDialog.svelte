@@ -6,7 +6,6 @@
     Radio,
     Textarea,
     TextInput,
-    Dropdown,
   } from "@specialdoom/proi-ui";
   import { generateNewTask, TASKS } from "../../utils/task";
   import { tasks, current } from "../../stores/days";
@@ -15,13 +14,7 @@
 
   export let visible: boolean = true;
 
-  let task: Task = {
-    date: $current,
-    title: "",
-    description: "",
-    type: "default",
-    timestamp: new Date(),
-  };
+  let task: Task = generateNewTask($current);
 
   function addNewTask() {
     $tasks = [...$tasks, { ...task }];

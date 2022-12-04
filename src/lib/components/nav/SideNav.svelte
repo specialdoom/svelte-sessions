@@ -1,5 +1,5 @@
-<div class:side-nav={true}>
-  <div class:side-nav-items={true}>
+<div class="side-nav">
+  <div class="side-nav-items">
     <slot />
   </div>
   <div>

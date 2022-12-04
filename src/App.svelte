@@ -18,7 +18,6 @@
     showLoading = true;
 
     onAuthStateChanged(firebaseAuth, (user) => {
-      console.log(user);
       if (user) {
         auth.update(() => ({
           email: user.email,

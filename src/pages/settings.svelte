@@ -9,8 +9,6 @@
   $: {
     localStorage.setItem("settings", JSON.stringify($settings));
   }
-
-  $: console.log($auth.isAnonymous);
 </script>
 
 <Settings>
@@ -24,7 +22,11 @@
   </SettingItem>
   <SettingItem>
     <p slot="description">Weather widget</p>
-    <Switch slot="action" bind:checked={$settings.weather} />
+    <Switch
+      slot="action"
+      bind:checked={$settings.weather}
+      disabled={$settings.locationBlock}
+    />
   </SettingItem>
   <SettingItem>
     <p slot="description">Todos widget</p>

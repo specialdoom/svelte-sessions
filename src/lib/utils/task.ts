@@ -23,11 +23,12 @@ export const TASKS: Readonly<{
 })
 
 export function generateNewTask(
+    date: dayjs.Dayjs = dayjs(),
     title: string = "",
     type: TaskType = "default",
     description: string = ""): Task {
     return {
-        date: dayjs(),
+        date,
         title,
         description,
         type,

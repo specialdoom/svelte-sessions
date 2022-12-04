@@ -1,6 +1,5 @@
 <script lang="ts">
   import TimelineItem from "./TimelineItem.svelte";
-  import NoTimelineState from "../../states/NoTimelineState.svelte";
   import { generateNewTask, TASKS } from "../../utils/task";
   import { current, tasks } from "../../stores/days";
   import {
@@ -8,8 +7,9 @@
     getTasksForUser,
   } from "../../services/firestore-tasks.js";
   import { auth } from "../../stores/auth.js";
-  import { Spinner } from "@specialdoom/proi-ui";
   import type { Todo } from "../../utils/types";
+  import dayjs from "../../utils/day-js";
+  import EmptyTimeline from "./EmptyTimeline.svelte";
 
   let over: boolean = false;
 
@@ -26,7 +26,7 @@
       event.dataTransfer.getData("todo")
     ) as Todo;
 
-    const newTask = generateNewTask(title, "todo");
+    const newTask = generateNewTask(dayjs(), title, "todo");
     newTask.todoId = id;
 
     addTaskForUser($auth.uid, newTask);
@@ -52,22 +52,13 @@
   class:over
   on:drop|preventDefault={onTodoDrop}
   on:dragover|preventDefault|stopPropagation={allowDrop}
-  on:dragleave|stopPropagation={leaveDropZone}
+  on:dragleave={leaveDropZone}
 >
   {#await getTasksForUser($auth.uid, $current)}
-    <div class="empty-state">
-      <Spinner />
-    </div>
-  {:then data}
+    <EmptyTimeline isLoading />
+  {:then _}
     {#if $tasks.length === 0}
-      <div class="empty-state">
-        <NoTimelineState />
-        <p>
-          {$current.isToday()
-            ? `Today's timeline of yours is empty!`
-            : `This day's timeline of yours is empty`}
-        </p>
-      </div>
+      <EmptyTimeline isToday={$current.isToday()} />
     {:else}
       <div class="all-timelines">
         {#each $tasks as task}
@@ -119,18 +110,5 @@
       right: unset;
       top: 0;
     }
-  }
-
-  div.empty-state {
-    box-sizing: border-box;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    height: 100%;
-    width: 100%;
-    font-family: Fredoka;
-    color: var(--g600);
   }
 </style>

@@ -15,7 +15,7 @@
   }
 </script>
 
-<div class="unauthenticated">
+<div class="unauthenticated-app">
   <img src="logo.png" alt="Dailyhunt logo" />
   <UnauthenticatedState />
   <div class="actions">
@@ -29,7 +29,7 @@
 </div>
 
 <style>
-  div.unauthenticated {
+  .unauthenticated-app {
     height: 100vh;
     width: 100%;
     box-sizing: border-box;
@@ -39,7 +39,7 @@
     flex-direction: column;
   }
 
-  div.actions {
+  .actions {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;

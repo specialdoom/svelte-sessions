@@ -1,10 +1,10 @@
-<div class:side-nav-brand={true}>
+<div class="side-nav-brand">
   <img src="logo.png" alt="Dailyhunt logo" class="larger" />
-  <img src="logo-face.png" alt="Dailyhunt logo" class="smaller" />
+  <img src="logo-face.png" alt="Dailyhunt logo face" class="smaller" />
 </div>
 
 <style>
-  div.side-nav-brand {
+  .side-nav-brand {
     padding: 16px 4px;
     display: inline-flex;
     justify-content: center;
