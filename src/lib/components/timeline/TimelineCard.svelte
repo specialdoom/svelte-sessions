@@ -53,7 +53,7 @@
 
   .timeline-description {
     font-size: 12px;
-    white-space: pre;
+    white-space: pre-wrap;
   }
 
   .timeline-time {
