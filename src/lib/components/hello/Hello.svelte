@@ -1,10 +1,4 @@
-<script>
-  import { auth } from "../../stores/auth";
-</script>
-
-<div>
-  Hello, {$auth.name}!
-</div>
+<div>Hello, Bogdan!</div>
 
 <style>
   div {

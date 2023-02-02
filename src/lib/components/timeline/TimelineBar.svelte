@@ -1,41 +1,12 @@
 <script lang="ts">
-  import { Button } from "@specialdoom/proi-ui";
-  import dayjs from "../../utils/day-js.js";
-  import { current, min } from "../../stores/days";
-  import NewTaskDialog from "../dialogs/NewTaskDialog.svelte";
-
-  let visible: boolean = false;
-
-  function changeDay(dayToAdd: number) {
-    $current = $current.add(dayToAdd, "day");
-  }
-
-  function toToday() {
-    $current = dayjs();
-  }
+  import dayjs from "dayjs";
 </script>
-
-<NewTaskDialog bind:visible on:ok={() => (visible = false)} />
 
 <div class="timeline-bar">
   <div class="timeline-bar-header">
     <div class="date-details">
-      <span class="date">{$current.format("MMMM D")}</span>
-      <span class="day-of-the-week">{$current.format("dddd")}</span>
-    </div>
-    <div class="controls">
-      {#if !$min.isSame($current, "day")}
-        <Button on:click={() => changeDay(-1)} variant="ghost">
-          Previous day
-        </Button>
-      {/if}
-      {#if $current.isToday()}
-        <Button on:click={() => (visible = true)}>Add task</Button>
-      {/if}
-      {#if !$current.isToday()}
-        <Button variant="secondary" on:click={toToday}>Today</Button>
-        <Button on:click={() => changeDay(1)} variant="ghost">Next day</Button>
-      {/if}
+      <span class="date">{dayjs().format("MMMM D")}</span>
+      <span class="day-of-the-week">{dayjs().format("dddd")}</span>
     </div>
   </div>
 </div>

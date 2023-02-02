@@ -1,22 +1,15 @@
 <script lang="ts">
-  import { Spinner } from "@specialdoom/proi-ui";
+  import { Button } from "@specialdoom/proi-ui";
+  import { createEventDispatcher } from "svelte";
   import NoTimelineState from "../../states/NoTimelineState.svelte";
 
-  export let isToday: boolean = false;
-  export let isLoading: boolean = false;
-
-  $: message = isToday
-    ? `Today's timeline of yours is empty!`
-    : `This day's timeline of yours is empty`;
+  const dispatch = createEventDispatcher();
 </script>
 
 <div class="empty-state">
-  {#if isLoading}
-    <Spinner />
-  {:else}
-    <NoTimelineState />
-    <p>{message}</p>
-  {/if}
+  <NoTimelineState />
+  <p>Today's timeline of yours is empty!</p>
+  <Button on:click={() => dispatch("new-task")}>Add new task</Button>
 </div>
 
 <style>

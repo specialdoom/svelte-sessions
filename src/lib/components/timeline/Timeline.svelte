@@ -1,74 +1,32 @@
 <script lang="ts">
   import TimelineItem from "./TimelineItem.svelte";
-  import { generateNewTask, TASKS } from "../../utils/task";
-  import { current, tasks } from "../../stores/days";
-  import {
-    addTaskForUser,
-    getTasksForUser,
-  } from "../../services/firestore-tasks.js";
-  import { auth } from "../../stores/auth.js";
-  import type { Todo } from "../../utils/types";
-  import dayjs from "../../utils/day-js";
+  import { TASKS } from "../../utils/task";
+  import type { Task } from "../../utils/types";
   import EmptyTimeline from "./EmptyTimeline.svelte";
+  import NewTaskDialog from "../dialogs/NewTaskDialog.svelte";
 
-  let over: boolean = false;
+  let tasks: Task[] = [];
+  let visible: boolean = false;
 
-  $: {
-    getTasksForUser($auth.uid, $current);
-  }
+  function addNewTask(event: CustomEvent<Task>) {
+    const task = event.detail;
 
-  function onTodoDrop(event: DragEvent) {
-    if (!event.dataTransfer.getData("todo")) return;
-
-    toggleOverClass(false);
-
-    const { title, id } = JSON.parse(
-      event.dataTransfer.getData("todo")
-    ) as Todo;
-
-    const newTask = generateNewTask(dayjs(), title, "todo");
-    newTask.todoId = id;
-
-    addTaskForUser($auth.uid, newTask);
-
-    $tasks = [...$tasks, newTask];
-  }
-
-  function toggleOverClass(value: boolean) {
-    over = value;
-  }
-
-  function allowDrop() {
-    toggleOverClass(true);
-  }
-
-  function leaveDropZone() {
-    toggleOverClass(false);
+    tasks = [...tasks, task];
   }
 </script>
 
-<div
-  class="timeline"
-  class:over
-  on:drop|preventDefault={onTodoDrop}
-  on:dragover|preventDefault|stopPropagation={allowDrop}
-  on:dragleave={leaveDropZone}
->
-  {#await getTasksForUser($auth.uid, $current)}
-    <EmptyTimeline isLoading />
-  {:then _}
-    {#if $tasks.length === 0}
-      <EmptyTimeline isToday={$current.isToday()} />
-    {:else}
-      <div class="all-timelines">
-        {#each $tasks as task}
-          <TimelineItem {task} icon={TASKS[task.type]} />
-        {/each}
-      </div>
-    {/if}
-  {:catch}
-    <p>Something went wrong</p>
-  {/await}
+<NewTaskDialog bind:visible on:add-task={addNewTask} />
+
+<div class="timeline">
+  {#if tasks.length === 0}
+    <EmptyTimeline on:new-task={() => (visible = true)} />
+  {:else}
+    <div class="all-timelines">
+      {#each tasks as task}
+        <TimelineItem {task} icon={TASKS[task.type]} />
+      {/each}
+    </div>
+  {/if}
 </div>
 
 <style>
@@ -81,11 +39,6 @@
 
   .timeline::-webkit-scrollbar {
     display: none;
-  }
-
-  .timeline.over {
-    border: 2px solid var(--p400);
-    border-radius: 8px;
   }
 
   .all-timelines {

@@ -1,5 +1,4 @@
 <script lang="ts">
-  import dayjs from "../../utils/day-js";
   import type { Task } from "../../utils/types";
 
   export let icon: string;
@@ -17,7 +16,7 @@
     </div>
   {/if}
   <div class="timeline-time">
-    {dayjs(task.timestamp).format("HH:mm")}
+    {task.date.format("HH:mm")}
   </div>
 </div>
 

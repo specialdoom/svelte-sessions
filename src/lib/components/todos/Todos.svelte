@@ -1,43 +1,30 @@
 <script lang="ts">
   import { Alert, Button, TextInput } from "@specialdoom/proi-ui";
+  import dayjs from "dayjs";
   import { onMount } from "svelte";
   import NothingToDoState from "../../states/NothingToDoState.svelte";
-  import {
-    addTodoForUser,
-    getTodosForUser,
-    inactivateTodo,
-  } from "../../services/firestore-todos";
-  import { auth } from "../../stores/auth";
-  import { current, tasks } from "../../stores/days";
-  import type { Todo } from "../../utils/types";
   import { generateNewTask } from "../../utils/task";
-  import { addTaskForUser } from "../../services/firestore-tasks";
+  import { generateNewTodo } from "../../utils/todo";
+  import type { Todo } from "../../utils/types";
 
   let todos: Todo[] = [];
   let todo = "";
 
   onMount(async () => {
-    todos = await getTodosForUser($auth.uid, $current);
+    todos = await new Promise((resolve) => {
+      setTimeout(() => {
+        resolve([generateNewTodo(), generateNewTodo()]);
+      }, 1500);
+    });
   });
 
-  $: {
-    getTodosForUser($auth.uid, $current).then((data) => {
-      todos = data;
-    });
-  }
-
-  $: isEmpty = todos.length === 0;
-
-  async function addTodo() {
+  function addTodo() {
     const newTodo = {
-      id: "",
+      id: Math.random(),
       title: todo,
       active: true,
-      date: $current,
+      date: dayjs(),
     };
-
-    const todoId = await addTodoForUser($auth.uid, { ...newTodo });
-    newTodo.id = todoId;
 
     todos = [...todos, { ...newTodo }];
 
@@ -51,61 +38,29 @@
   }
 
   function onTodoClose(todo: Todo) {
-    inactivateTodo(todo.id);
-
     const task = generateNewTask();
 
     task.title = todo.title;
-    task.todoId = todo.id;
-
-    addTaskForUser($auth.uid, task);
-  }
-
-  function onTodoDragOver(event: DragEvent, todo: Todo) {
-    event.dataTransfer.setData("todo", JSON.stringify(todo));
-  }
-
-  function onTodoDragEnd(todo: Todo) {
-    if ($tasks.find((t) => t.title === todo.title)) {
-      inactivateTodo(todo.id);
-
-      todos = [...todos.filter((td) => td.id !== todo.id)];
-    }
   }
 </script>
 
 <div class="todos-container">
-  <div class="todos" class:center={isEmpty}>
-    {#if !isEmpty}
-      {#each todos as todo}
-        <div
-          class="todo-wrapper"
-          draggable="true"
-          on:dragstart={(ev) => onTodoDragOver(ev, todo)}
-          on:dragend={() => onTodoDragEnd(todo)}
-        >
-          <Alert
-            title={todo.title}
-            closable={$current.isToday()}
-            on:close={() => onTodoClose(todo)}
-          />
-        </div>
-      {/each}
+  <div class="todos" class:center={todos.length === 0}>
+    {#each todos as todo}
+      <Alert title={todo.title} closable on:close={() => onTodoClose(todo)} />
     {:else}
       <NothingToDoState />
       <span class="todos-empty-state-message">Nothing to do?</span>
-    {/if}
+    {/each}
   </div>
-  {#if $current.isToday()}
-    <div class="control">
-      <TextInput
-        placeholder="Add new todo"
-        bind:value={todo}
-        on:keydown={onKeyDownHandler}
-      />
-      <Button on:click={addTodo} disabled={todo === ""}>+</Button>
-    </div>
-  {/if}
+  <div class="control">
+    <TextInput
+      placeholder="Add new todo"
+      bind:value={todo}
+      on:keydown={onKeyDownHandler}
+    />
+    <Button on:click={addTodo} disabled={todo === ""}>Add</Button>
+  </div>
 </div>
 
 <style>
@@ -122,10 +77,6 @@
     display: flex;
     flex-direction: column;
     gap: 4px;
-  }
-
-  .todo-wrapper {
-    cursor: grab;
   }
 
   .todos.center {

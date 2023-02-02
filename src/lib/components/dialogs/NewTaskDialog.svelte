@@ -1,5 +1,4 @@
 <script lang="ts">
-  import type { Task } from "../../utils/types";
   import {
     Dialog,
     FormItem,
@@ -7,29 +6,27 @@
     Textarea,
     TextInput,
   } from "@specialdoom/proi-ui";
+  import dayjs from "dayjs";
+  import { createEventDispatcher } from "svelte";
   import { generateNewTask, TASKS } from "../../utils/task";
-  import { tasks, current } from "../../stores/days";
-  import { auth } from "../../stores/auth";
-  import { addTaskForUser } from "../../services/firestore-tasks";
+  import type { Task } from "../../utils/types";
 
   export let visible: boolean = true;
 
-  let task: Task = generateNewTask($current);
+  let task: Task = generateNewTask();
+
+  const dispatch = createEventDispatcher();
 
   function addNewTask() {
-    $tasks = [...$tasks, { ...task }];
-
-    addTaskForUser($auth.uid, { ...task });
-
-    task = generateNewTask();
+    dispatch("add-task", task);
+    visible = false;
   }
 </script>
 
 <Dialog
   bind:visible
-  title="🗒️ Add new task: {$current.format('DD/MM/YYYY, HH:mm')}"
+  title="🗒️ Add new task: {dayjs().format('DD/MM/YYYY, HH:mm')}"
   on:ok={addNewTask}
-  on:ok
 >
   <FormItem label="Title">
     <TextInput placeholder="Task title" bind:value={task.title} />

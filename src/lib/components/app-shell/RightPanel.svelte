@@ -17,7 +17,8 @@
 
   @media only screen and (max-width: 800px) {
     .right-side-bar {
-      display: none;
+      width: 100%;
+      height: 30%;
     }
   }
 </style>
