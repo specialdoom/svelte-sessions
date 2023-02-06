@@ -23,7 +23,7 @@
 
     visible = false;
 
-    task = generateNewTask();
+    task = generateNewTask(date);
   }
 </script>
 
