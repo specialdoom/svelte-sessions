@@ -14,9 +14,17 @@
   let visible: boolean = false;
   let date: Dayjs = dayjs();
 
+  $: tasksKey = `tasks-${date.format("DDMMYYYY")}`;
+
+  $: if (date) {
+    databaseService
+      .read(tasksKey)
+      .then((data) => (tasks = data as Task[]))
+      .catch(() => (tasks = []));
+  }
+
   onMount(async () => {
-    tasks = (await databaseService.read("tasks")) as Task[];
-    console.log(tasks);
+    tasks = (await databaseService.read(tasksKey)) as Task[];
   });
 
   async function addNewTask(event: CustomEvent<Task>) {
@@ -24,7 +32,7 @@
 
     tasks = [...tasks, task];
 
-    await databaseService.save("tasks", tasks);
+    await databaseService.save(tasksKey, tasks);
   }
 
   function handleDayChange(dayToAdd: number) {
