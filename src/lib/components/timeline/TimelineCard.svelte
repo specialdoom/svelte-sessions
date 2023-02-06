@@ -31,7 +31,7 @@
     height: fit-content;
     border-radius: 8px;
     padding: 8px;
-    background: var(--g0);
+    background: var(--g400);
   }
 
   .timeline-info {
