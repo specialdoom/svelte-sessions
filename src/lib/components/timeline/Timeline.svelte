@@ -4,32 +4,66 @@
   import type { Task } from "../../utils/types";
   import EmptyTimeline from "./EmptyTimeline.svelte";
   import NewTaskDialog from "../dialogs/NewTaskDialog.svelte";
+  import TimelineBar from "./TimelineBar.svelte";
+  import databaseService from "../../services/database.service";
+  import { onMount } from "svelte";
+  import type { Dayjs } from "dayjs";
+  import dayjs from "dayjs";
 
   let tasks: Task[] = [];
   let visible: boolean = false;
+  let date: Dayjs = dayjs();
 
-  function addNewTask(event: CustomEvent<Task>) {
+  onMount(async () => {
+    tasks = (await databaseService.read("tasks")) as Task[];
+    console.log(tasks);
+  });
+
+  async function addNewTask(event: CustomEvent<Task>) {
     const task = event.detail;
 
     tasks = [...tasks, task];
+
+    await databaseService.save("tasks", tasks);
+  }
+
+  function handleDayChange(dayToAdd: number) {
+    date = date.add(dayToAdd, "day");
   }
 </script>
 
-<NewTaskDialog bind:visible on:add-task={addNewTask} />
+<NewTaskDialog {date} bind:visible on:add-task={addNewTask} />
 
-<div class="timeline">
-  {#if tasks.length === 0}
-    <EmptyTimeline on:new-task={() => (visible = true)} />
-  {:else}
-    <div class="all-timelines">
-      {#each tasks as task}
-        <TimelineItem {task} icon={TASKS[task.type]} />
-      {/each}
-    </div>
-  {/if}
+<div class="timeline-container">
+  <TimelineBar
+    {date}
+    on:to-add={() => (visible = true)}
+    on:previous-day={() => handleDayChange(-1)}
+    on:next-day={() => handleDayChange(1)}
+  />
+
+  <div class="timeline">
+    {#if tasks.length === 0}
+      <EmptyTimeline />
+    {:else}
+      <div class="all-timelines">
+        {#each tasks as task}
+          <TimelineItem {task} icon={TASKS[task.type]} />
+        {/each}
+      </div>
+    {/if}
+  </div>
 </div>
 
 <style>
+  .timeline-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    height: 100%;
+    width: 100%;
+  }
+
   .timeline {
     height: 100%;
     width: 100%;

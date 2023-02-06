@@ -1,33 +1,34 @@
 <script lang="ts">
-  import { Alert, Button, TextInput } from "@specialdoom/proi-ui";
-  import dayjs from "dayjs";
-  import { onMount } from "svelte";
+  import { Alert, Button, TextInput, toaster } from "@specialdoom/proi-ui";
+  import { createEventDispatcher, onMount } from "svelte";
   import NothingToDoState from "../../states/NothingToDoState.svelte";
-  import { generateNewTask } from "../../utils/task";
-  import { generateNewTodo } from "../../utils/todo";
   import type { Todo } from "../../utils/types";
+  import Database from "../../services/database.service";
+  import { generateNewTodo } from "../../utils/todo";
 
   let todos: Todo[] = [];
   let todo = "";
 
+  const dispatch = createEventDispatcher();
+
+  $: displayedTodos = todos.filter((todo) => todo.active);
+
   onMount(async () => {
-    todos = await new Promise((resolve) => {
-      setTimeout(() => {
-        resolve([generateNewTodo(), generateNewTodo()]);
-      }, 1500);
-    });
+    todos = (await Database.read("todos")) as Todo[];
   });
 
-  function addTodo() {
-    const newTodo = {
-      id: Math.random(),
-      title: todo,
-      active: true,
-      date: dayjs(),
-    };
+  async function addTodo() {
+    const newTodo = generateNewTodo(todo);
 
     todos = [...todos, { ...newTodo }];
 
+    await Database.save("todos", todos);
+    toaster.success("Todo saved successfully");
+
+    clearTodo();
+  }
+
+  function clearTodo() {
     todo = "";
   }
 
@@ -37,17 +38,27 @@
     }
   }
 
-  function onTodoClose(todo: Todo) {
-    const task = generateNewTask();
+  async function onTodoClose(todo: Todo) {
+    todos = todos.map((t) => {
+      if (t.id === todo.id) {
+        return { ...t, active: false };
+      }
 
-    task.title = todo.title;
+      return t;
+    });
+
+    dispatch("todo-close", todo);
+
+    await Database.save("todos", todos);
   }
 </script>
 
 <div class="todos-container">
-  <div class="todos" class:center={todos.length === 0}>
-    {#each todos as todo}
-      <Alert title={todo.title} closable on:close={() => onTodoClose(todo)} />
+  <div class="todos" class:center={displayedTodos.length === 0}>
+    {#each displayedTodos as todo (todo.id)}
+      {#if todo.active}
+        <Alert title={todo.title} closable on:close={() => onTodoClose(todo)} />
+      {/if}
     {:else}
       <NothingToDoState />
       <span class="todos-empty-state-message">Nothing to do?</span>

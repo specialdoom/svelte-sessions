@@ -6,27 +6,31 @@
     Textarea,
     TextInput,
   } from "@specialdoom/proi-ui";
-  import dayjs from "dayjs";
+  import dayjs, { Dayjs } from "dayjs";
   import { createEventDispatcher } from "svelte";
   import { generateNewTask, TASKS } from "../../utils/task";
   import type { Task } from "../../utils/types";
 
   export let visible: boolean = true;
+  export let date: Dayjs = dayjs();
 
-  let task: Task = generateNewTask();
+  let task: Task = generateNewTask(date);
 
   const dispatch = createEventDispatcher();
 
-  function addNewTask() {
+  function addTask() {
     dispatch("add-task", task);
+
     visible = false;
+
+    task = generateNewTask();
   }
 </script>
 
 <Dialog
   bind:visible
-  title="🗒️ Add new task: {dayjs().format('DD/MM/YYYY, HH:mm')}"
-  on:ok={addNewTask}
+  title="🗒️ Add task: {date.format('DD/MM/YYYY')}"
+  on:ok={addTask}
 >
   <FormItem label="Title">
     <TextInput placeholder="Task title" bind:value={task.title} />

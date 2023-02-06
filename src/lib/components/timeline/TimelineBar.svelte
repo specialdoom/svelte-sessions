@@ -1,12 +1,29 @@
 <script lang="ts">
-  import dayjs from "dayjs";
+  import { Button } from "@specialdoom/proi-ui";
+  import dayjs, { Dayjs } from "dayjs";
+  import { createEventDispatcher } from "svelte";
+
+  export let date: Dayjs = dayjs();
+
+  const dispatch = createEventDispatcher();
 </script>
 
 <div class="timeline-bar">
   <div class="timeline-bar-header">
     <div class="date-details">
-      <span class="date">{dayjs().format("MMMM D")}</span>
-      <span class="day-of-the-week">{dayjs().format("dddd")}</span>
+      <span class="date">{date.format("MMMM D")}</span>
+      <span class="day-of-the-week">{date.format("dddd")}</span>
+    </div>
+    <div class="date-controls">
+      <Button on:click={() => dispatch("previous-day")} variant="outline">
+        Previous Day
+      </Button>
+      <Button on:click={() => dispatch("to-add")}>Add new task</Button>
+      {#if date.format("DDMMYYYY") !== dayjs().format("DDMMYYYY")}
+        <Button on:click={() => dispatch("next-day")} variant="outline">
+          Next Day
+        </Button>
+      {/if}
     </div>
   </div>
 </div>
@@ -30,6 +47,12 @@
   .date-details {
     display: flex;
     flex-direction: column;
+  }
+
+  .date-controls {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
   }
 
   .date {

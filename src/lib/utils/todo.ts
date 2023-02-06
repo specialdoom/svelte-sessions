@@ -3,8 +3,8 @@ import type { Todo } from "./types";
 
 export const generateNewTodo = (
   title = "New todo",
-  active = false,
-  date = dayjs()
+  active = true,
+  date = dayjs().toString()
 ): Todo => ({
   id: Math.random(),
   title,

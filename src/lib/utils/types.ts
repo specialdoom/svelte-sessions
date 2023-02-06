@@ -17,7 +17,7 @@ export type TaskType =
   | "relaxing";
 
 export interface Task {
-  date: Dayjs;
+  date: string;
   title: string;
   description: string;
   type: TaskType;
@@ -37,5 +37,5 @@ export interface Todo {
   id: number;
   title: string;
   active: boolean;
-  date: Dayjs;
+  date: string;
 }

@@ -1,15 +1,11 @@
 <script lang="ts">
-  import { Button } from "@specialdoom/proi-ui";
   import { createEventDispatcher } from "svelte";
   import NoTimelineState from "../../states/NoTimelineState.svelte";
-
-  const dispatch = createEventDispatcher();
 </script>
 
 <div class="empty-state">
   <NoTimelineState />
   <p>Today's timeline of yours is empty!</p>
-  <Button on:click={() => dispatch("new-task")}>Add new task</Button>
 </div>
 
 <style>
