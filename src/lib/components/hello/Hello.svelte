@@ -1,4 +1,8 @@
-<div>Hello, Bogdan!</div>
+<script lang="ts">
+  export let name: string = "Bogdan";
+</script>
+
+<div>Hello, {name}!</div>
 
 <style>
   div {
