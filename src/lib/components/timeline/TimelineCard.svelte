@@ -1,5 +1,5 @@
 <script lang="ts">
-  import dayjs from "dayjs";
+  import dayjs from "../../utils/dayjs";
   import type { Task } from "../../utils/types";
 
   export let icon: string;

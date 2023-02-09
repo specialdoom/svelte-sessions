@@ -1,11 +1,20 @@
 <script lang="ts">
-  import { createEventDispatcher } from "svelte";
-  import NoTimelineState from "../../states/NoTimelineState.svelte";
+  import type { Dayjs } from "../../utils/dayjs";
+  import dayjs from "../../utils/dayjs";
+  import NoTimelineIllustration from "../../illustrations/NoTimelineIllustration.svelte";
+
+  export let date: Dayjs = dayjs();
+
+  $: label = `${
+    date.isToday() ? "Today's" : "This day"
+  } timeline of yours is empty!`;
 </script>
 
 <div class="empty-state">
-  <NoTimelineState />
-  <p>Today's timeline of yours is empty!</p>
+  <NoTimelineIllustration />
+  <p>
+    {label}
+  </p>
 </div>
 
 <style>

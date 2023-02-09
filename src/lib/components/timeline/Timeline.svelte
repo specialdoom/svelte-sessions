@@ -7,8 +7,8 @@
   import TimelineBar from "./TimelineBar.svelte";
   import databaseService from "../../services/database.service";
   import { onMount } from "svelte";
-  import type { Dayjs } from "dayjs";
-  import dayjs from "dayjs";
+  import type { Dayjs } from "../../utils/dayjs";
+  import dayjs from "../../utils/dayjs";
 
   let tasks: Task[] = [];
   let visible: boolean = false;
@@ -52,7 +52,7 @@
 
   <div class="timeline">
     {#if tasks.length === 0}
-      <EmptyTimeline />
+      <EmptyTimeline {date} />
     {:else}
       <div class="all-timelines">
         {#each tasks as task}

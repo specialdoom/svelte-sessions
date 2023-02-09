@@ -1,4 +1,4 @@
-import dayjs from "dayjs";
+import dayjs from "./dayjs";
 import type { Todo } from "./types";
 
 export const generateNewTodo = (

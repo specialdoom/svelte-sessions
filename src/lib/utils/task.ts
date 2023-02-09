@@ -1,4 +1,4 @@
-import dayjs, { Dayjs } from "dayjs";
+import dayjs, { type Dayjs } from "./dayjs";
 import type { Task, TaskType } from "./types";
 
 export const TASKS: Readonly<{

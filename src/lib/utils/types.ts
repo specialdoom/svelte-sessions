@@ -1,4 +1,4 @@
-import type { Dayjs } from "dayjs";
+import type { Dayjs } from "./dayjs";
 
 export type Constructor<T> = new (...args: any[]) => T;
 

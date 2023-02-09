@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Button } from "@specialdoom/proi-ui";
-  import dayjs, { Dayjs } from "dayjs";
+  import dayjs, { type Dayjs } from "../../utils/dayjs";
   import { createEventDispatcher } from "svelte";
 
   export let date: Dayjs = dayjs();
@@ -19,11 +19,13 @@
         Previous Day
       </Button>
       <Button on:click={() => dispatch("to-add")}>Add new task</Button>
-      {#if date.format("DDMMYYYY") !== dayjs().format("DDMMYYYY")}
-        <Button on:click={() => dispatch("next-day")} variant="outline">
-          Next Day
-        </Button>
-      {/if}
+      <Button
+        on:click={() => dispatch("next-day")}
+        variant="outline"
+        disabled={date.isToday()}
+      >
+        Next Day
+      </Button>
     </div>
   </div>
 </div>

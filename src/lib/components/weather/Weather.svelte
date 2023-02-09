@@ -1,27 +1,10 @@
 <script lang="ts">
-  import { onMount } from "svelte";
   import CloudsIcon from "../../icons/CloudsIcon.svelte";
+  import { WEATHER_API_ENDPOINT } from "./utils";
 
-  let lat = 46.768616;
-  let long = 23.592163;
-
-  onMount(() => {
-    navigator.geolocation.getCurrentPosition(
-      (position: GeolocationPosition) => {
-        const { coords } = position;
-
-        lat = coords.latitude;
-        long = coords.longitude;
-      }
-    );
-  });
-
-  const promise = fetch(
-    `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${long}&current_weather=true`,
-    {
-      method: "GET",
-    }
-  ).then((data) => data.json());
+  const promise = fetch(WEATHER_API_ENDPOINT, {
+    method: "GET",
+  }).then((data) => data.json());
 </script>
 
 <div>
@@ -30,7 +13,7 @@
   {:then data}
     <CloudsIcon />
     {Math.floor(data.current_weather.temperature)}°C
-    <span>Cluj-Napoca</span>
+    <span>Iasi</span>
   {/await}
 </div>
 

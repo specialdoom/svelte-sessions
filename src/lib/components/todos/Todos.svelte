@@ -1,7 +1,7 @@
 <script lang="ts">
   import { Alert, Button, TextInput, toaster } from "@specialdoom/proi-ui";
   import { createEventDispatcher, onMount } from "svelte";
-  import NothingToDoState from "../../states/NothingToDoState.svelte";
+  import NothingToDoIllustration from "../../illustrations/NothingToDoIllustration.svelte";
   import type { Todo } from "../../utils/types";
   import Database from "../../services/database.service";
   import { generateNewTodo } from "../../utils/todo";
@@ -60,7 +60,7 @@
         <Alert title={todo.title} closable on:close={() => onTodoClose(todo)} />
       {/if}
     {:else}
-      <NothingToDoState />
+      <NothingToDoIllustration />
       <span class="todos-empty-state-message">Nothing to do?</span>
     {/each}
   </div>

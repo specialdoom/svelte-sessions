@@ -6,7 +6,7 @@
     Textarea,
     TextInput,
   } from "@specialdoom/proi-ui";
-  import dayjs, { Dayjs } from "dayjs";
+  import dayjs, { type Dayjs } from "../../utils/dayjs";
   import { createEventDispatcher } from "svelte";
   import { generateNewTask, TASKS } from "../../utils/task";
   import type { Task } from "../../utils/types";
@@ -29,7 +29,7 @@
 
 <Dialog
   bind:visible
-  title="🗒️ Add task: {date.format('DD/MM/YYYY')}"
+  title="🗒️ Add task: {date.format('DD.MM.YYYY')}"
   on:ok={addTask}
 >
   <FormItem label="Title">
