@@ -1,6 +1,7 @@
 <script lang="ts">
-  import { Alert, TextInput, Button } from "@specialdoom/proi-ui";
+  import { Alert, Button } from "@specialdoom/proi-ui";
   import { todos } from "./stores/todos.js";
+  import { timeout } from "./actions/timeout.js";
 
   let todo = "";
 
@@ -39,13 +40,15 @@
 
 <div class:todos={true}>
   {#each $todos as todo}
-    <Alert title={todo.text} closable on:close={() => onClose(todo.id)} />
+    {#if !todo.completed}
+      <Alert title={todo.text} closable on:close={() => onClose(todo.id)} />
+    {/if}
   {:else}
     No todos
   {/each}
 </div>
 <div class:card={true} style:display="inline-flex" style:gap="4px">
-  <TextInput bind:value={todo} on:keydown={onKeyDown} />
+  <input bind:value={todo} on:keydown={onKeyDown} use:timeout />
   <Button on:click={addTodo}>Add</Button>
 </div>
 

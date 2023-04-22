@@ -12,3 +12,10 @@
     <Tabs.Pane index={1} title="Completed"><CompletedTodos /></Tabs.Pane>
   </Tabs>
 </main>
+
+<style>
+  main {
+    min-width: 320px;
+    min-height: 220px;
+  }
+</style>
